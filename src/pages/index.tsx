@@ -1,5 +1,6 @@
-import { Button } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -11,7 +12,14 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <Button>Start!</Button>
+        <Flex direction='column' align='center'>
+          <Link href='/deck'>
+            <Button as='a'>Memorize Deck</Button>
+          </Link>
+          <Link href='/chat'>
+            <Button as='a'>Chat with AI</Button>
+          </Link>
+        </Flex>
       </main>
     </>
   )
