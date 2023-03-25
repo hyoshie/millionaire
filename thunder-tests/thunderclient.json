@@ -1,0 +1,59 @@
+[
+  {
+    "_id": "a17a7515-c458-4b80-affd-4045f3c832f9",
+    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
+    "containerId": "",
+    "name": "Categories",
+    "url": "{{SUPABASE_URL}}/rest/v1/choices",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-25T08:41:42.648Z",
+    "modified": "2023-03-25T08:41:42.648Z",
+    "headers": [
+      {
+        "name": "apikey",
+        "value": "{{SUPABASE_CLIENT_API_KEY}}"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "6392c103-86aa-48e2-a799-9b9353b25052",
+    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
+    "containerId": "",
+    "name": "Choices",
+    "url": "{{SUPABASE_URL}}/rest/v1/categories",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-03-25T08:41:50.012Z",
+    "modified": "2023-03-25T08:41:50.012Z",
+    "headers": [
+      {
+        "name": "apikey",
+        "value": "{{SUPABASE_CLIENT_API_KEY}}"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "ba858dfe-32d1-4f50-b0f1-d8e145ff1d29",
+    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
+    "containerId": "",
+    "name": "Questions",
+    "url": "{{SUPABASE_URL}}/rest/v1/questions",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-25T08:42:00.857Z",
+    "modified": "2023-03-25T08:42:00.857Z",
+    "headers": [
+      {
+        "name": "apikey",
+        "value": "{{SUPABASE_CLIENT_API_KEY}}"
+      }
+    ],
+    "params": [],
+    "tests": []
+  }
+]
