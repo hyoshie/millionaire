@@ -6,3 +6,9 @@ export type Question = {
   created_at: Date;
   updated_at: Date;
 };
+
+export type QuizItem = {
+  question: string;
+  choices: string[];
+  correctChoiceIndex: number;
+};
