@@ -38,9 +38,7 @@ export const Quiz = ({
               w='100%'
               isDisabled={isDisabled}
             >
-              <>
-                {label}: {question[`option_${option}` as keyof Question]}
-              </>
+              {`${label}: ${question[`option_${option}` as keyof Question]}`}
             </Button>
           );
         })}
