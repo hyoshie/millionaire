@@ -1,7 +1,5 @@
-// pages/quiz.tsx
-import { Center, Heading, VStack } from '@chakra-ui/react';
+import { Center, Heading, Spinner, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -12,7 +10,11 @@ export default function QuizPage() {
     useQuiz(questions);
 
   if (isLoading || !currentQuestion) {
-    return <p>Loading...</p>;
+    return (
+      <Center h='100vh' bg='gray.100'>
+        <Spinner size='xl' />;
+      </Center>
+    );
   }
 
   if (error) {
