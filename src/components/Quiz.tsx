@@ -9,13 +9,13 @@ type QuizProps = {
   nextQuestion: () => void;
 };
 
-export function Quiz({
+export const Quiz = ({
   question,
   selectedOption,
   isCorrect,
   checkAnswer,
   nextQuestion,
-}: QuizProps) {
+}: QuizProps) => {
   const optionLabels = ['A', 'B', 'C', 'D'];
 
   return (
@@ -52,4 +52,4 @@ export function Quiz({
       </SimpleGrid>
     </>
   );
-}
+};
