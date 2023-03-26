@@ -1,40 +1,22 @@
-import { Box, Center, Heading, Text, VStack } from '@chakra-ui/react';
+// pages/quiz.tsx
+import { Center, Heading, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import Actions from '@/components/Actions';
-import Choices from 'src/components/Choices';
-import useQuizItems from 'src/hooks/useQuizItems';
+import { Quiz } from 'src/components/Quiz';
+import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
+import { useQuiz } from 'src/hooks/useQuiz';
 
 export default function QuizPage() {
-  const router = useRouter();
-  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-  const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const { quizItems, isLoading } = useQuizItems();
-  const currentQuizItem = quizItems[currentQuizIndex];
+  const { questions, isLoading, error } = useFetchQuestions();
+  const { currentQuestion, selectedOption, isCorrect, checkAnswer, nextQuestion } =
+    useQuiz(questions);
 
-  const checkAnswer = (selectedChoiceIndex: number) => {
-    setSelectedChoiceIndex(selectedChoiceIndex);
-    setIsCorrect(selectedChoiceIndex === currentQuizItem.correctChoiceIndex);
-  };
-
-  const nextQuestion = () => {
-    if (currentQuizIndex < quizItems.length - 1) {
-      setCurrentQuizIndex(currentQuizIndex + 1);
-      setSelectedChoiceIndex(null);
-      setIsCorrect(null);
-    } else {
-      router.push('/result');
-    }
-  };
-
-  const goToHomePage = () => {
-    router.push('/');
-  };
-
-  if (isLoading || !currentQuizItem) {
+  if (isLoading || !currentQuestion) {
     return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error</p>;
   }
 
   return (
@@ -47,23 +29,13 @@ export default function QuizPage() {
           <Heading as='h1' size='2xl'>
             Quiz
           </Heading>
-          <Box>
-            <Text fontSize='2xl'>{currentQuizItem.question}</Text>
-          </Box>
-          <Choices
-            choices={currentQuizItem.choices}
-            selectedChoiceIndex={selectedChoiceIndex}
+          <Quiz
+            question={currentQuestion}
+            selectedOption={selectedOption}
             isCorrect={isCorrect}
-            onChoiceClick={checkAnswer}
+            checkAnswer={checkAnswer}
+            nextQuestion={nextQuestion}
           />
-          {selectedChoiceIndex !== null && (
-            <Actions
-              isCorrect={isCorrect}
-              correctChoice={currentQuizItem.choices[currentQuizItem.correctChoiceIndex]}
-              onNextQuestion={nextQuestion}
-              onGoToHomePage={goToHomePage}
-            />
-          )}
         </VStack>
       </Center>
     </div>
