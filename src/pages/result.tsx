@@ -1,14 +1,8 @@
-import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
+import { Box, Center, Heading, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { BackToHomeButton } from '@/components/BackToHomeButton';
 
 export default function ResultPage() {
-  const router = useRouter();
-
-  const goToHomePage = () => {
-    router.push('/');
-  };
-
   return (
     <div>
       <Head>
@@ -24,9 +18,7 @@ export default function ResultPage() {
               You completed the quiz!
             </Heading>
           </Box>
-          <Button colorScheme='blue' onClick={goToHomePage}>
-            Go to Home Page
-          </Button>
+          <BackToHomeButton />
         </VStack>
       </Center>
     </div>
