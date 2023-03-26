@@ -1,17 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { QUIZ_QUESTION_COUNT } from '@/constants';
 import { Question } from '@/types';
 import { supabase } from 'lib/supabaseClient';
 
 type Data = Question[] | { error: string };
 
-// すべてのクイズを取得する
-// デバッグのために作成
+// クイズをランダムに取得する
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     const { data: questionsData, error: questionsError } = await supabase
       .from('random_questions')
       .select('*')
-      .limit(5);
+      .limit(QUIZ_QUESTION_COUNT);
 
     if (questionsError) throw new Error(questionsError.message);
 
