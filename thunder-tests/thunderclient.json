@@ -8,26 +8,7 @@
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-03-25T08:41:42.648Z",
-    "modified": "2023-03-25T16:44:58.696Z",
-    "headers": [
-      {
-        "name": "apikey",
-        "value": "{{SUPABASE_CLIENT_API_KEY}}"
-      }
-    ],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "6392c103-86aa-48e2-a799-9b9353b25052",
-    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
-    "containerId": "",
-    "name": "Choices",
-    "url": "{{SUPABASE_URL}}/rest/v1/choices",
-    "method": "GET",
-    "sortNum": 20000,
-    "created": "2023-03-25T08:41:50.012Z",
-    "modified": "2023-03-25T16:44:50.705Z",
+    "modified": "2023-03-26T02:41:55.069Z",
     "headers": [
       {
         "name": "apikey",
