@@ -14,14 +14,18 @@ export const useQuiz = (questions: Question[]) => {
     setIsCorrect(option === currentQuestion.correct_option);
   };
 
-  const nextQuestion = () => {
+  const nextQuestionOrResult = () => {
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null);
-      setIsCorrect(null);
+      goToNextQuestion();
     } else {
       router.push('/result');
     }
+  };
+
+  const goToNextQuestion = () => {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setSelectedOption(null);
+    setIsCorrect(null);
   };
 
   return {
@@ -30,6 +34,6 @@ export const useQuiz = (questions: Question[]) => {
     selectedOption,
     isCorrect,
     checkAnswer,
-    nextQuestion,
+    nextQuestionOrResult,
   };
 };

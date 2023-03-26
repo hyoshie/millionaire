@@ -64,14 +64,18 @@ const OptionButtons = ({
 type NextOrBackButtonProps = {
   selectedOption: CorrectOption | null;
   isCorrect: boolean | null;
-  nextQuestion: () => void;
+  nextQuestionOrResult: () => void;
 };
 
-const NextOrBackButton = ({ selectedOption, isCorrect, nextQuestion }: NextOrBackButtonProps) => {
+const NextOrBackButton = ({
+  selectedOption,
+  isCorrect,
+  nextQuestionOrResult,
+}: NextOrBackButtonProps) => {
   if (selectedOption === null || isCorrect === null) return null;
 
   return isCorrect ? (
-    <Button colorScheme='blue' onClick={nextQuestion}>
+    <Button colorScheme='blue' onClick={nextQuestionOrResult}>
       Next Question
     </Button>
   ) : (
@@ -84,7 +88,7 @@ type QuizProps = {
   selectedOption: CorrectOption | null;
   isCorrect: boolean | null;
   checkAnswer: (option: CorrectOption) => void;
-  nextQuestion: () => void;
+  nextQuestionOrResult: () => void;
 };
 
 export const Quiz = ({
@@ -92,7 +96,7 @@ export const Quiz = ({
   selectedOption,
   isCorrect,
   checkAnswer,
-  nextQuestion,
+  nextQuestionOrResult,
 }: QuizProps) => {
   return (
     <>
@@ -106,7 +110,7 @@ export const Quiz = ({
       <NextOrBackButton
         selectedOption={selectedOption}
         isCorrect={isCorrect}
-        nextQuestion={nextQuestion}
+        nextQuestionOrResult={nextQuestionOrResult}
       />
     </>
   );

@@ -6,7 +6,7 @@ import { useQuiz } from 'src/hooks/useQuiz';
 
 export default function QuizPage() {
   const { questions, isLoading, error } = useFetchQuestions();
-  const { currentQuestion, selectedOption, isCorrect, checkAnswer, nextQuestion } =
+  const { currentQuestion, selectedOption, isCorrect, checkAnswer, nextQuestionOrResult } =
     useQuiz(questions);
 
   if (isLoading || !currentQuestion) {
@@ -36,7 +36,7 @@ export default function QuizPage() {
             selectedOption={selectedOption}
             isCorrect={isCorrect}
             checkAnswer={checkAnswer}
-            nextQuestion={nextQuestion}
+            nextQuestionOrResult={nextQuestionOrResult}
           />
         </VStack>
       </Center>
