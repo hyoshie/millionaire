@@ -22,7 +22,7 @@ export default function QuizPage() {
   }
 
   return (
-    <div>
+    <>
       <Head>
         <title>Quiz Page</title>
       </Head>
@@ -40,6 +40,6 @@ export default function QuizPage() {
           />
         </VStack>
       </Center>
-    </div>
+    </>
   );
 }

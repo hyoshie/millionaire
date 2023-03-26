@@ -9,7 +9,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <>
       <Head>
         <title>Millionaire</title>
       </Head>
@@ -23,6 +23,6 @@ export default function Home() {
           </Container>
         </VStack>
       </Center>
-    </div>
+    </>
   );
 }

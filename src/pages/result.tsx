@@ -4,7 +4,7 @@ import { BackToHomeButton } from '@/components/BackToHomeButton';
 
 export default function ResultPage() {
   return (
-    <div>
+    <>
       <Head>
         <title>Result Page</title>
       </Head>
@@ -21,6 +21,6 @@ export default function ResultPage() {
           <BackToHomeButton />
         </VStack>
       </Center>
-    </div>
+    </>
   );
 }
