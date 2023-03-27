@@ -1,4 +1,4 @@
-import { Center, Heading, Spinner, VStack } from '@chakra-ui/react';
+import { Center, Heading, Progress, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
@@ -6,8 +6,16 @@ import { useQuiz } from 'src/hooks/useQuiz';
 
 export default function QuizPage() {
   const { questions, isLoading, error } = useFetchQuestions();
-  const { currentQuestion, selectedOption, isCorrect, checkAnswer, nextQuestionOrResult } =
-    useQuiz(questions);
+  const {
+    currentQuestion,
+    selectedOption,
+    isCorrect,
+    checkAnswer,
+    nextQuestionOrResult,
+    currentQuestionIndex,
+  } = useQuiz(questions);
+
+  const progressValue = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   if (isLoading || !currentQuestion) {
     return (
@@ -31,6 +39,13 @@ export default function QuizPage() {
           <Heading as='h1' size='2xl'>
             Quiz
           </Heading>
+          <Progress
+            width='100%'
+            value={progressValue}
+            colorScheme='blue'
+            size='sm'
+            borderRadius='md'
+          />
           <Quiz
             question={currentQuestion}
             selectedOption={selectedOption}
