@@ -15,7 +15,7 @@ export default function QuizPage() {
     currentQuestionIndex,
   } = useQuiz(questions);
 
-  const progressValue = ((currentQuestionIndex + 1) / questions.length) * 100;
+  const progressValue = (currentQuestionIndex / questions.length) * 100;
 
   if (isLoading || !currentQuestion) {
     return (
