@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "9a7a8b45-0faa-49ea-8924-826da36811cf",
+    "name": "Millionaire Development",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-03-25T08:13:18.905Z",
+    "modified": "2023-03-25T08:13:18.905Z",
+    "data": [],
+    "envFile": "../.env.local"
+  }
+]
