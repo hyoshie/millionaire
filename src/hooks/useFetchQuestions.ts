@@ -13,9 +13,9 @@ export const useFetchQuestions = () => {
         setIsLoading(true);
         const response = await axios.get('/api/questions/random');
         setQuestions(response.data);
-        setIsLoading(false);
       } catch (error) {
         setError(error);
+      } finally {
         setIsLoading(false);
       }
     };
