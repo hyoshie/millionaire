@@ -1,5 +1,8 @@
-import { Center, Heading, Progress, Spinner, VStack } from '@chakra-ui/react';
+import { Center, Heading, Spinner, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
+import { PhoneAFriend } from '@/components/PhoneAFriend';
+import { ProgressBar } from '@/components/ProgressBar';
+import { useLifelines } from '@/hooks/useLifelines';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -15,6 +18,7 @@ export default function QuizPage() {
     nextQuestionOrResult,
     currentQuestionIndex,
   } = useQuiz(questions);
+  const { usedPhone, fetchAnswerFromGPT } = useLifelines();
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
@@ -33,7 +37,6 @@ export default function QuizPage() {
     return <p>Error</p>;
   }
 
-  // クイズを表示する
   return (
     <>
       <Head>
@@ -46,12 +49,12 @@ export default function QuizPage() {
             Quiz
           </Heading>
           {/* プログレスバーを表示する */}
-          <Progress
-            width='100%'
-            value={progressValue}
-            colorScheme='blue'
-            size='sm'
-            borderRadius='md'
+          <ProgressBar progressValue={progressValue} />
+          {/* 電話ボタンを追加する */}
+          <PhoneAFriend
+            usedPhone={usedPhone}
+            fetchAnswerFromGPT={fetchAnswerFromGPT}
+            input={currentQuestion}
           />
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
