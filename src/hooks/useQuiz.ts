@@ -9,7 +9,6 @@ export const useQuiz = (questions: Question[]) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<CorrectOption | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [usedPhone, setUsedPhone] = useState(false);
   const currentQuestion = questions[currentQuestionIndex];
   const router = useRouter();
 
@@ -28,20 +27,6 @@ export const useQuiz = (questions: Question[]) => {
     }
   };
 
-  const fetchAnswerFromGPT = async (userInput: string) => {
-    try {
-      setUsedPhone(true);
-      const response = await axios.post('/api/lifelines/phoneAFriend', { userInput });
-
-      if (response.status !== 200) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-      return response.data.message;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   // 次の質問に進むための関数
   const goToNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -57,7 +42,5 @@ export const useQuiz = (questions: Question[]) => {
     isCorrect,
     checkAnswer,
     nextQuestionOrResult,
-    usedPhone,
-    fetchAnswerFromGPT,
   };
 };
