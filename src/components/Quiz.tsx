@@ -2,6 +2,7 @@ import { Button, SimpleGrid, Text } from '@chakra-ui/react';
 import { BackToHomeButton } from './BackToHomeButton';
 import { CorrectOption, Question } from 'src/types/index';
 
+// 回答ボタンをレンダリングするためのコンポーネント
 type OptionButtonProps = {
   label: string;
   optionText: string;
@@ -22,6 +23,7 @@ const OptionButton = ({
   </Button>
 );
 
+// 回答ボタンをレンダリングするためのコンポーネント
 type OptionButtonsProps = {
   question: Question;
   selectedOption: CorrectOption | null;
@@ -61,6 +63,7 @@ const OptionButtons = ({
   );
 };
 
+// 次の質問に進むボタンをレンダリングするためのコンポーネント
 type NextOrBackButtonProps = {
   selectedOption: CorrectOption | null;
   isCorrect: boolean | null;
@@ -83,6 +86,7 @@ const NextOrBackButton = ({
   );
 };
 
+// クイズの表示をレンダリングするためのコンポーネント
 type QuizProps = {
   question: Question;
   selectedOption: CorrectOption | null;
