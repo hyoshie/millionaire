@@ -21,13 +21,19 @@ interface PhoneAFriendProps {
 const PhoneAFriend = ({ usedPhone, fetchAnswerFromGPT, input }: PhoneAFriendProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>(null);
 
   const handleOnClick = async () => {
-    setIsLoading(true);
-    // 電話ボタンを押したら、GPT-3から回答を取得する
-    const answer = await fetchAnswerFromGPT(input.question);
-    setGPTAnswer(answer);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      // 電話ボタンを押したら、GPT-3から回答を取得する
+      const answer = await fetchAnswerFromGPT(input.question);
+      setGPTAnswer(answer);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
