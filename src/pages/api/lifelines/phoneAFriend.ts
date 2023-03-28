@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       messages: [
         {
           role: 'user',
-          content: `教えてchatGPT`,
+          content: ``,
         },
         {
           role: 'system',
