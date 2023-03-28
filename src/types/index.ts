@@ -6,23 +6,14 @@ export type Question = {
   option_b: string;
   option_c: string;
   option_d: string;
-  correct_option: CorrectOption;
+  correct_option: Option;
   difficulty: Difficulty;
   created_at: Date;
   updated_at: Date;
 };
 
-export enum CorrectOption {
-  A = 'a',
-  B = 'b',
-  C = 'c',
-  D = 'd',
-}
+export type Option = 'a' | 'b' | 'c' | 'd';
 
-export enum Difficulty {
-  Easy = 'easy',
-  Hard = 'hard',
-  Medium = 'medium',
-}
+export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export type QuizStatus = 'ongoing' | 'correct' | 'incorrect';
