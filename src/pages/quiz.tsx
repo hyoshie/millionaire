@@ -10,14 +10,8 @@ import { useQuiz } from 'src/hooks/useQuiz';
 export default function QuizPage() {
   // データのフェッチとクイズ状態を取得する
   const { questions, isLoading, error } = useFetchQuestions();
-  const {
-    currentQuestion,
-    selectedOption,
-    isCorrect,
-    checkAnswer,
-    nextQuestionOrResult,
-    currentQuestionIndex,
-  } = useQuiz(questions);
+  const { currentQuestion, quizStatus, checkAnswer, nextQuestionOrResult, currentQuestionIndex } =
+    useQuiz(questions);
   const { usedPhone, fetchAnswerFromGPT } = useLifelines();
 
   // プログレスバーの値を計算する
@@ -59,8 +53,7 @@ export default function QuizPage() {
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}
-            selectedOption={selectedOption}
-            isCorrect={isCorrect}
+            quizStatus={quizStatus}
             checkAnswer={checkAnswer}
             nextQuestionOrResult={nextQuestionOrResult}
           />

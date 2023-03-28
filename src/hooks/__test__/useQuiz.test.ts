@@ -52,46 +52,44 @@ describe('useQuiz', () => {
     const { result } = renderHook(() => useQuiz(mockQuestions));
 
     expect(result.current.currentQuestionIndex).toBe(0);
-    expect(result.current.selectedOption).toBe(null);
-    expect(result.current.isCorrect).toBe(null);
+    expect(result.current.quizStatus).toBe('ongoing');
   });
 
-  it('正しい答えを選択した場合、isCorrectがtrueになること', () => {
+  it('正しい答えを選択した場合、quizStatusがcorrectになること', () => {
     const { result } = renderHook(() => useQuiz(mockQuestions));
 
     act(() => {
       result.current.checkAnswer(mockQuestions[0].correct_option);
     });
 
-    expect(result.current.isCorrect).toBe(true);
+    expect(result.current.quizStatus).toBe('correct');
   });
 
-  it('不正解を選択した場合、isCorrectがfalseになること', () => {
+  it('不正解を選択した場合、quizStatusがincorrectになること', () => {
     const { result } = renderHook(() => useQuiz(mockQuestions));
 
     act(() => {
       result.current.checkAnswer('b' as CorrectOption);
     });
 
-    expect(result.current.isCorrect).toBe(false);
+    expect(result.current.quizStatus).toBe('incorrect');
   });
 
-  it('次の質問に進むと、選択肢と正誤がリセットされること', () => {
+  it('次の質問に進むと、選択肢と進行状況がリセットされること', () => {
     const { result } = renderHook(() => useQuiz(mockQuestions));
 
     act(() => {
       result.current.checkAnswer(mockQuestions[0].correct_option);
     });
 
-    expect(result.current.isCorrect).toBe(true);
+    expect(result.current.quizStatus).toBe('correct');
 
     act(() => {
       result.current.nextQuestionOrResult();
     });
 
     expect(result.current.currentQuestionIndex).toBe(1);
-    expect(result.current.selectedOption).toBe(null);
-    expect(result.current.isCorrect).toBe(null);
+    expect(result.current.quizStatus).toBe('ongoing');
   });
 
   it('最後の質問で正解した場合、/resultに遷移すること', () => {
