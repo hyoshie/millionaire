@@ -18,7 +18,7 @@ interface PhoneAFriendProps {
   input: Question;
 }
 
-const PhoneAFriend = ({ usedPhone, fetchAnswerFromGPT, input }: PhoneAFriendProps) => {
+export const PhoneAFriend = ({ usedPhone, fetchAnswerFromGPT, input }: PhoneAFriendProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
@@ -54,5 +54,3 @@ const PhoneAFriend = ({ usedPhone, fetchAnswerFromGPT, input }: PhoneAFriendProp
     </Popover>
   );
 };
-
-export default PhoneAFriend;
