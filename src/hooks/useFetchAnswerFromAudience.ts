@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { Question } from '@/types';
 
-export const useFetchAnswerFromGPT = () => {
+export const useFetchAnswerFromAudience = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 
-  const fetchAnswerFromGPT = async (userInput: string) => {
+  const fetchAnswerFromAudience = async (currentQuestion: Question) => {
     try {
       setIsLoading(true);
-      const response = await axios.post('/api/lifelines/phoneAFriend', { userInput });
+      const response = await axios.post('/api/lifelines/askTheAudience', { currentQuestion });
       return response.data.message;
     } catch (error) {
       setError(error);
@@ -19,7 +20,7 @@ export const useFetchAnswerFromGPT = () => {
 
   // クイズ状態を返す
   return {
-    fetchAnswerFromGPT,
+    fetchAnswerFromAudience,
     isLoading,
     error,
   };
