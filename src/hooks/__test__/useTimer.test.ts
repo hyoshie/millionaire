@@ -8,6 +8,7 @@ jest.useFakeTimers();
 describe('useTimer', () => {
   it('タイマーが正しくカウントダウンされること', () => {
     const initialTime = 10;
+    const passTime = 2;
     const onTimeOut = jest.fn();
     const { result } = renderHook(() => useTimer(initialTime, onTimeOut));
 
@@ -17,7 +18,36 @@ describe('useTimer', () => {
       result.current.startTimer();
     });
 
-    jest.advanceTimersByTime(1000);
+    for (let i = 0; i < passTime; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+    }
+
+    expect(result.current.timeLeft).toBe(initialTime - passTime);
+  });
+
+  it('タイマーがストップされること', () => {
+    const initialTime = 10;
+    const passTime = 2;
+    const onTimeOut = jest.fn();
+    const { result } = renderHook(() => useTimer(initialTime, onTimeOut));
+
+    act(() => {
+      result.current.startTimer();
+    });
+
+    for (let i = 0; i < passTime; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+      // 1秒でストップ
+      if (i == 0) {
+        act(() => {
+          result.current.stopTimer();
+        });
+      }
+    }
 
     expect(result.current.timeLeft).toBe(initialTime - 1);
   });
@@ -31,7 +61,9 @@ describe('useTimer', () => {
       result.current.startTimer();
     });
 
-    jest.advanceTimersByTime(1000);
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
 
     act(() => {
       result.current.resetTimer();
@@ -40,8 +72,6 @@ describe('useTimer', () => {
     expect(result.current.timeLeft).toBe(initialTime);
   });
 
-  // Warning: An update to TestComponent inside a test was not wrapped in act(...).
-  // Warningを直せないのでとりあえず無視
   it('タイムアウトが正しく呼び出されること', async () => {
     const onTimeOut = jest.fn();
     const { result } = renderHook(() => useTimer(QUIZ_QUESTION_TIME, onTimeOut));

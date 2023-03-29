@@ -23,9 +23,13 @@ export const useTimer = (initialTime: number, onTimeOut: () => void) => {
     setTimerRunning(true);
   }, []);
 
+  const stopTimer = useCallback(() => {
+    setTimerRunning(false);
+  }, []);
+
   const resetTimer = useCallback(() => {
     setTimeLeft(initialTime);
   }, [initialTime]);
 
-  return { timeLeft, startTimer, resetTimer };
+  return { timeLeft, startTimer, stopTimer, resetTimer };
 };

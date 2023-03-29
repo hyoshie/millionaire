@@ -16,7 +16,7 @@ export const useQuiz = (questions: Question[]) => {
   const onTimeOut = () => {
     setQuizStatus('incorrect');
   };
-  const { timeLeft, startTimer, resetTimer } = useTimer(QUIZ_QUESTION_TIME, onTimeOut);
+  const { timeLeft, startTimer, stopTimer, resetTimer } = useTimer(QUIZ_QUESTION_TIME, onTimeOut);
 
   // 質問が変わるたびにタイマーをリセットして再開する
   useEffect(() => {
@@ -28,6 +28,7 @@ export const useQuiz = (questions: Question[]) => {
 
   // 回答をチェックするための関数
   const checkAnswer = (option: Option) => {
+    stopTimer();
     setQuizStatus(option === currentQuestion.correct_option ? 'correct' : 'incorrect');
   };
 

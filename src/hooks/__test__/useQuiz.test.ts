@@ -139,4 +139,57 @@ describe('useQuiz', () => {
 
     expect(result.current.quizStatus).toBe('incorrect');
   });
+
+  it('正解の選択肢を選んだ場合、タイマーが停止すること', () => {
+    const { result } = renderHook(() => useQuiz(mockQuestions));
+    const passTime = 2;
+
+    for (let i = 0; i < passTime; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+    }
+
+    act(() => {
+      result.current.checkAnswer(mockQuestions[0].correct_option);
+    });
+
+    expect(result.current.quizStatus).toBe('correct');
+    expect(result.current.timeLeft).toBe(QUIZ_QUESTION_TIME - passTime);
+
+    for (let i = 0; i < passTime; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+    }
+
+    expect(result.current.timeLeft).toBe(QUIZ_QUESTION_TIME - passTime);
+  });
+
+  it('不正解の選択肢を選んだ場合、タイマーが停止すること', () => {
+    const { result } = renderHook(() => useQuiz(mockQuestions));
+    const passTime = 2;
+    const incorrectOption = getIncorrectOption(mockQuestions[0].correct_option);
+
+    for (let i = 0; i < passTime; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+    }
+
+    act(() => {
+      result.current.checkAnswer(incorrectOption);
+    });
+
+    expect(result.current.quizStatus).toBe('incorrect');
+    expect(result.current.timeLeft).toBe(QUIZ_QUESTION_TIME - passTime);
+
+    for (let i = 0; i < passTime; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+    }
+
+    expect(result.current.timeLeft).toBe(QUIZ_QUESTION_TIME - passTime);
+  });
 });
