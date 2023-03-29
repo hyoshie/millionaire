@@ -1,6 +1,10 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { Question, Option, Difficulty } from '../../types';
+import { Question, Option } from '../../types';
 import { useQuiz } from '../useQuiz';
+import { QUIZ_QUESTION_TIME } from '@/constants';
+
+// timerのモックを使用するための設定
+jest.useFakeTimers();
 
 // next/routerのモック
 const pushMock = jest.fn();
@@ -60,6 +64,7 @@ describe('useQuiz', () => {
 
     expect(result.current.currentQuestionIndex).toBe(0);
     expect(result.current.quizStatus).toBe('ongoing');
+    expect(result.current.timeLeft).toBe(QUIZ_QUESTION_TIME);
   });
 
   it('正しい答えを選択した場合、quizStatusがcorrectになること', () => {
@@ -120,5 +125,18 @@ describe('useQuiz', () => {
     });
 
     expect(pushMock).toHaveBeenCalledWith('/result');
+  });
+
+  it('タイムアウトした場合、quizStatusがincorrectになること', () => {
+    const { result } = renderHook(() => useQuiz(mockQuestions));
+
+    // jest.advanceTimersByTime(QUIZ_QUESTION_TIME * 1000)だと、なぜか一秒しか進まないので、for文で回す
+    for (let i = 0; i < QUIZ_QUESTION_TIME; i++) {
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+    }
+
+    expect(result.current.quizStatus).toBe('incorrect');
   });
 });

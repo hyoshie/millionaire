@@ -1,15 +1,30 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Question, Option, QuizStatus } from '../types';
+import { useTimer } from './useTimer';
+import { QUIZ_QUESTION_TIME } from '@/constants';
 
 // クイズ状態を管理するためのカスタムフック
 export const useQuiz = (questions: Question[]) => {
   // 現在の質問番号、クイズの進行状況をuseStateで管理する
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizStatus, setQuizStatus] = useState<QuizStatus>('ongoing');
-
   const currentQuestion = questions[currentQuestionIndex];
   const router = useRouter();
+
+  // タイマーを管理するためのカスタムフックを呼び出す
+  const onTimeOut = () => {
+    setQuizStatus('incorrect');
+  };
+  const { timeLeft, startTimer, resetTimer } = useTimer(QUIZ_QUESTION_TIME, onTimeOut);
+
+  // 質問が変わるたびにタイマーをリセットして再開する
+  useEffect(() => {
+    if (currentQuestionIndex >= 0) {
+      resetTimer();
+      startTimer();
+    }
+  }, [currentQuestionIndex, startTimer, resetTimer]);
 
   // 回答をチェックするための関数
   const checkAnswer = (option: Option) => {
@@ -38,5 +53,6 @@ export const useQuiz = (questions: Question[]) => {
     quizStatus,
     checkAnswer,
     nextQuestionOrResult,
+    timeLeft,
   };
 };
