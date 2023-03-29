@@ -1,4 +1,4 @@
-import { Center, Heading, Spinner, VStack } from '@chakra-ui/react';
+import { Center, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { PhoneAFriend } from '@/components/PhoneAFriend';
 import { ProgressBar } from '@/components/ProgressBar';
@@ -9,8 +9,14 @@ import { useQuiz } from 'src/hooks/useQuiz';
 export default function QuizPage() {
   // データのフェッチとクイズ状態を取得する
   const { questions, isLoading, error } = useFetchQuestions();
-  const { currentQuestion, quizStatus, checkAnswer, nextQuestionOrResult, currentQuestionIndex } =
-    useQuiz(questions);
+  const {
+    currentQuestion,
+    quizStatus,
+    checkAnswer,
+    nextQuestionOrResult,
+    currentQuestionIndex,
+    timeLeft,
+  } = useQuiz(questions);
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
@@ -40,10 +46,11 @@ export default function QuizPage() {
           <Heading as='h1' size='2xl'>
             Quiz
           </Heading>
+          <Text>Time left: {timeLeft}</Text>
           {/* プログレスバーを表示する */}
           <ProgressBar progressValue={progressValue} />
           {/* 電話ボタンを追加する */}
-          <PhoneAFriend currentQuestion={currentQuestion} />
+          <PhoneAFriend currentQuestion={currentQuestion} quizStatus={quizStatus} />
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}

@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import axios from 'axios';
 import { useFetchQuestions } from '../useFetchQuestions';
-import { Option, Difficulty, Question } from '@/types';
+import { Question } from '@/types';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
