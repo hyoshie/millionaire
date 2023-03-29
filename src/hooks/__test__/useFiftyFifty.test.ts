@@ -1,21 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { QUIZ_OPTIONS } from '@/constants';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
 import { Option, Question } from '@/types';
 
-// const mockQuestion: Question = {
-//   id: 1,
-//   category_id: 1,
-//   question: 'テスト質問1',
-//   correct_option: 'a',
-//   option_a: '選択肢1',
-//   option_b: '選択肢2',
-//   option_c: '選択肢3',
-//   option_d: '選択肢4',
-//   difficulty: 'easy',
-//   created_at: new Date(),
-//   updated_at: new Date(),
-// };
 // テスト用の質問データ
 const mockQuestions: Question[] = [
   {
