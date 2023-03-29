@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { AskTheAudience } from '@/components/AskTheAudience';
 import { PhoneAFriend } from '@/components/PhoneAFriend';
 import { ProgressBar } from '@/components/ProgressBar';
-import { useLifelines } from '@/hooks/useLifelines';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -13,8 +12,6 @@ export default function QuizPage() {
   const { questions, isLoading, error } = useFetchQuestions();
   const { currentQuestion, quizStatus, checkAnswer, nextQuestionOrResult, currentQuestionIndex } =
     useQuiz(questions);
-  const { usedPhone, fetchAnswerFromGPT, usedAudience, fetchAnswerFromAudience } =
-    useLifelines(currentQuestion);
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
@@ -47,18 +44,7 @@ export default function QuizPage() {
           {/* プログレスバーを表示する */}
           <ProgressBar progressValue={progressValue} />
           {/* 電話ボタンを追加する */}
-          <HStack>
-            <PhoneAFriend
-              usedPhone={usedPhone}
-              fetchAnswerFromGPT={fetchAnswerFromGPT}
-              input={currentQuestion}
-            />
-            <AskTheAudience
-              usedAudience={usedAudience}
-              fetchAnswerFromAudience={fetchAnswerFromAudience}
-              input={currentQuestion}
-            />
-          </HStack>
+          <PhoneAFriend currentQuestion={currentQuestion} />
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}
