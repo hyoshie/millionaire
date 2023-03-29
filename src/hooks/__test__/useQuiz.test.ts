@@ -2,7 +2,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { Question, Option } from '../../types';
 import { useQuiz } from '../useQuiz';
 import { advanceTimers } from './utils';
-import { QUIZ_QUESTION_TIME } from '@/constants';
+import { QUIZ_OPTIONS, QUIZ_QUESTION_TIME } from '@/constants';
 
 // timerのモックを使用するための設定
 jest.useFakeTimers();
@@ -49,8 +49,7 @@ const mockQuestions: Question[] = [
 ];
 
 const getIncorrectOption = (correctOption: Option): Option => {
-  const options: Option[] = ['a', 'b', 'c', 'd'];
-  const incorrectOptions = options.filter((option) => option !== correctOption);
+  const incorrectOptions = QUIZ_OPTIONS.filter((option) => option !== correctOption);
   const randomIndex = Math.floor(Math.random() * incorrectOptions.length);
   return incorrectOptions[randomIndex];
 };

@@ -1,11 +1,12 @@
 import { useEffect, useMemo } from 'react';
+import { QUIZ_OPTIONS } from '@/constants';
 import { Option, Question } from '@/types';
-
-const options: Option[] = ['a', 'b', 'c', 'd'];
 
 export const useFiftyFifty = (currentQuestion: Question) => {
   const hiddenQuestions = useMemo(() => {
-    const incorrectOptions = options.filter((option) => option !== currentQuestion.correct_option);
+    const incorrectOptions = QUIZ_OPTIONS.filter(
+      (option) => option !== currentQuestion.correct_option,
+    );
     const randomOptionIndex = Math.floor(Math.random() * incorrectOptions.length);
     return incorrectOptions.filter((option, index) => index !== randomOptionIndex);
   }, [currentQuestion]);

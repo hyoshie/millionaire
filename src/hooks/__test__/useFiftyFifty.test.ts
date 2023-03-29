@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
+import { QUIZ_OPTIONS } from '@/constants';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
 import { Option, Question } from '@/types';
 
@@ -16,8 +17,6 @@ const mockQuestion: Question = {
   updated_at: new Date(),
 };
 
-const options: Option[] = ['a', 'b', 'c', 'd'];
-
 describe('useFiftyFifty', () => {
   let result: any;
   beforeEach(() => {
@@ -26,7 +25,9 @@ describe('useFiftyFifty', () => {
 
   it('正しい答え以外の選択肢が2つ非表示になっていること', () => {
     const { hiddenQuestions } = result.current;
-    const visibleOptions: Option[] = options.filter((option) => !hiddenQuestions.includes(option));
+    const visibleOptions: Option[] = QUIZ_OPTIONS.filter(
+      (option) => !hiddenQuestions.includes(option),
+    );
 
     expect(hiddenQuestions.length).toBe(2);
     expect(visibleOptions).toContain(mockQuestion.correct_option);
