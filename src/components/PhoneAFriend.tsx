@@ -17,7 +17,7 @@ interface PhoneAFriendProps {
   currentQuestion: Question;
 }
 
-export const PhoneAFriend = ({ currentQuestion: input }: PhoneAFriendProps) => {
+export const PhoneAFriend = ({ currentQuestion }: PhoneAFriendProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
   const { fetchAnswerFromGPT, isLoading, error } = useFetchAnswerFromGPT();
 
@@ -28,7 +28,7 @@ export const PhoneAFriend = ({ currentQuestion: input }: PhoneAFriendProps) => {
 
   const handleOnClick = async () => {
     // 電話ボタンを押したら、GPT-3から回答を取得する
-    const answer = await fetchAnswerFromGPT(input.question);
+    const answer = await fetchAnswerFromGPT(currentQuestion.question);
     setGPTAnswer(answer);
   };
 
