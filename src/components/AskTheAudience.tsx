@@ -11,13 +11,14 @@ import {
 import { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { useFetchAnswerFromAudience } from '@/hooks/useFetchAnswerFromAudience';
-import { OptionPercentage, Question } from '@/types';
+import { OptionPercentage, Question, QuizStatus } from '@/types';
 
 type AskTheAudienceProps = {
   currentQuestion: Question;
+  quizStatus: QuizStatus;
 };
 
-export const AskTheAudience = ({ currentQuestion }: AskTheAudienceProps) => {
+export const AskTheAudience = ({ currentQuestion, quizStatus }: AskTheAudienceProps) => {
   const [audienceAnswer, setAudienceAnswer] = useState<OptionPercentage[]>();
   const { fetchAnswerFromAudience, isLoading, error } = useFetchAnswerFromAudience();
 
@@ -38,7 +39,7 @@ export const AskTheAudience = ({ currentQuestion }: AskTheAudienceProps) => {
           <Button
             colorScheme='teal'
             onClick={handleOnClick}
-            isDisabled={audienceAnswer !== undefined}
+            isDisabled={audienceAnswer !== undefined || quizStatus !== 'ongoing'}
           >
             {audienceAnswer !== undefined ? 'Used' : 'Ask the Audience'}
           </Button>

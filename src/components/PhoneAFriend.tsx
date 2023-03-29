@@ -11,13 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useFetchAnswerFromGPT } from '@/hooks/useFetchAnswerFromGPT';
-import { Question } from '@/types';
+import { Question, QuizStatus } from '@/types';
 
 type PhoneAFriendProps = {
   currentQuestion: Question;
+  quizStatus: QuizStatus;
 };
 
-export const PhoneAFriend = ({ currentQuestion }: PhoneAFriendProps) => {
+export const PhoneAFriend = ({ currentQuestion, quizStatus }: PhoneAFriendProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
   const { fetchAnswerFromGPT, isLoading, error } = useFetchAnswerFromGPT();
 
@@ -35,7 +36,11 @@ export const PhoneAFriend = ({ currentQuestion }: PhoneAFriendProps) => {
   return (
     <Popover placement='top'>
       <PopoverTrigger>
-        <Button colorScheme='teal' onClick={handleOnClick} isDisabled={gptAnswer !== ''}>
+        <Button
+          colorScheme='teal'
+          onClick={handleOnClick}
+          isDisabled={gptAnswer !== '' || quizStatus !== 'ongoing'}
+        >
           {gptAnswer !== '' ? 'Used' : 'Phone a Friend'}
         </Button>
       </PopoverTrigger>
