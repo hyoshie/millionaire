@@ -48,7 +48,7 @@ describe('useFiftyFifty', () => {
     expect(hiddenOptions).not.toContain(question.correct_option);
   });
 
-  // // 100回テストを実行して、非表示になる選択肢がランダムであることを確認する
+  // 100回テストを実行して、非表示になる選択肢がランダムであることを確認する
   it('非表示になる選択肢はランダムであること', () => {
     const question = mockQuestions[0];
     const testCounts = 100;
