@@ -12,7 +12,6 @@ export const FiftyFiftyButton = ({ quizStatus, handleFiftyFifty }: FiftyFiftyBut
   const handleOnClick = async () => {
     setUsed(true);
     handleFiftyFifty();
-    console.log('click');
   };
 
   return (
@@ -21,7 +20,7 @@ export const FiftyFiftyButton = ({ quizStatus, handleFiftyFifty }: FiftyFiftyBut
       onClick={handleOnClick}
       isDisabled={used || quizStatus !== 'ongoing'}
     >
-      {used === true ? 'Fifty-Fifty Used' : 'Fifty-Fifty'}
+      {used ? 'Fifty-Fifty Used' : 'Fifty-Fifty'}
     </Button>
   );
 };

@@ -38,7 +38,6 @@ export default function QuizPage() {
   if (error) {
     return <p>Error</p>;
   }
-  console.log(hiddenOptions);
 
   return (
     <>
