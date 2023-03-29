@@ -1,7 +1,8 @@
-import { Center, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Center, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
+import { AskTheAudienceButton } from '@/components/AskTheAudienceButton';
 import { FiftyFiftyButton } from '@/components/FiftyFiftyButton';
-import { PhoneAFriend } from '@/components/PhoneAFriend';
+import { PhoneAFriendButton } from '@/components/PhoneAFriendButton';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
 import { Quiz } from 'src/components/Quiz';
@@ -53,9 +54,12 @@ export default function QuizPage() {
           <Text>Time left: {timeLeft}</Text>
           {/* プログレスバーを表示する */}
           <ProgressBar progressValue={progressValue} />
-          {/* 電話ボタンを追加する */}
-          <PhoneAFriend currentQuestion={currentQuestion} quizStatus={quizStatus} />
-          <FiftyFiftyButton quizStatus={quizStatus} handleFiftyFifty={handleFiftyFifty} />
+          {/* Lifelinesを表示する */}
+          <HStack spacing={4}>
+            <PhoneAFriendButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
+            <AskTheAudienceButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
+            <FiftyFiftyButton quizStatus={quizStatus} handleFiftyFifty={handleFiftyFifty} />
+          </HStack>
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}
