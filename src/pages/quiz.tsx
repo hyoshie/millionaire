@@ -43,9 +43,11 @@ export default function QuizPage() {
           </Heading>
           {/* プログレスバーを表示する */}
           <ProgressBar progressValue={progressValue} />
-          {/* 電話ボタンを追加する */}
-          <PhoneAFriend currentQuestion={currentQuestion} />
-          <AskTheAudience currentQuestion={currentQuestion} />
+          {/* Lifelinesを表示する */}
+          <HStack spacing={4}>
+            <PhoneAFriend currentQuestion={currentQuestion} />
+            <AskTheAudience currentQuestion={currentQuestion} />
+          </HStack>
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}

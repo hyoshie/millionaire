@@ -17,3 +17,8 @@ export type Option = 'a' | 'b' | 'c' | 'd';
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export type QuizStatus = 'ongoing' | 'correct' | 'incorrect';
+
+export type OptionPercentage = {
+  option: string;
+  percentage: number;
+};
