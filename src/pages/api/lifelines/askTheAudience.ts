@@ -1,6 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
+import { handleOpenAIRequest } from './handleOpenAIReqauest';
 import { Question } from '@/types';
-import { openai, openaiConfiguration } from 'lib/openAIClient';
+import { openaiConfiguration } from 'lib/openAIClient';
 
 const chatTypeToPrompt = (currentQuestion: Question) => {
   // TODO: ここでランダムに回答の精度が決まるようにする
@@ -30,27 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const chatPrompt = chatTypeToPrompt(currentQuestion);
 
   try {
-    // OpenAIのAPIの使い方は以下を参考にした
-    // https://platform.openai.com/docs/api-reference/chat/create?lang=node.js
-    const completion = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'user',
-          content: ``,
-        },
-        {
-          role: 'system',
-          content: `${chatPrompt}`,
-        },
-      ],
-    });
-    const rawMessage = completion.data.choices[0].message?.content;
-
-    // 改行が入るので削除
-    // TODO: openAIのAPIで改行が入る理由要調査
-    const message = rawMessage?.replace(/\n/g, '').trim();
-
+    const message = await handleOpenAIRequest(req, chatPrompt);
     res.status(200).json({ message });
   } catch (error: Error | any) {
     if (error.response !== undefined) {
