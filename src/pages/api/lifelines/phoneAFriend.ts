@@ -1,5 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
-import { handleOpenAIRequest } from './handleOpenAIReqauest';
+import { handleOpenAIRequest } from './handleOpenAIRequest';
 import { openaiConfiguration } from 'lib/openAIClient';
 
 const name = 'タカシ';

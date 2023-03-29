@@ -1,5 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
-import { handleOpenAIRequest } from './handleOpenAIReqauest';
+import { handleOpenAIRequest } from './handleOpenAIRequest';
 import { Question } from '@/types';
 import { openaiConfiguration } from 'lib/openAIClient';
 
