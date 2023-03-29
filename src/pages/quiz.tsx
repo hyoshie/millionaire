@@ -1,7 +1,7 @@
 import { Center, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
-import { AskTheAudience } from '@/components/AskTheAudience';
-import { PhoneAFriend } from '@/components/PhoneAFriend';
+import { AskTheAudienceButton } from '@/components/AskTheAudienceButton';
+import { PhoneAFriendButton } from '@/components/PhoneAFriendButton';
 import { ProgressBar } from '@/components/ProgressBar';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
@@ -52,8 +52,8 @@ export default function QuizPage() {
           <ProgressBar progressValue={progressValue} />
           {/* Lifelinesを表示する */}
           <HStack spacing={4}>
-            <PhoneAFriend currentQuestion={currentQuestion} quizStatus={quizStatus} />
-            <AskTheAudience currentQuestion={currentQuestion} quizStatus={quizStatus} />
+            <PhoneAFriendButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
+            <AskTheAudienceButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
           </HStack>
           {/* 電話ボタンを追加する */}
           {/* Quizコンポーネントに必要なプロップスを渡す */}
