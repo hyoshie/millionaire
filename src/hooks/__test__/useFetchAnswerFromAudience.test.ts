@@ -13,9 +13,6 @@ const mockResponse: OptionPercentage[] = [
   { option: 'd', percentage: 10 },
 ];
 
-// 修正: data.messageにmockResponseを配置します
-mockedAxios.post.mockResolvedValue({ data: { message: mockResponse } });
-
 const mockQuestion: Question = {
   id: 1,
   category_id: 1,
@@ -32,7 +29,7 @@ const mockQuestion: Question = {
 
 describe('useFetchAnswerFromAudience', () => {
   it('Audienceからの回答取得に成功した場合、回答データが返されること', async () => {
-    mockedAxios.post.mockResolvedValue({ data: mockResponse });
+    mockedAxios.post.mockResolvedValue({ data: { message: mockResponse } });
 
     const { result } = renderHook(() => useFetchAnswerFromAudience());
 
