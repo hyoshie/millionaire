@@ -1,25 +1,25 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-export const useLifelines = () => {
-  const [usedPhone, setUsedPhone] = useState(false);
+export const useFetchAnswerFromGPT = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>(null);
 
   const fetchAnswerFromGPT = async (userInput: string) => {
     try {
-      setUsedPhone(true);
+      setIsLoading(true);
       const response = await axios.post('/api/lifelines/phoneAFriend', { userInput });
-
-      if (response.status !== 200) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
       return response.data.message;
     } catch (error) {
-      console.error(error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
-    usedPhone,
     fetchAnswerFromGPT,
+    isLoading,
+    error,
   };
 };
