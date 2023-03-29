@@ -24,3 +24,5 @@ export enum Difficulty {
   Hard = 'hard',
   Medium = 'medium',
 }
+
+export type QuizStatus = 'ongoing' | 'correct' | 'incorrect';

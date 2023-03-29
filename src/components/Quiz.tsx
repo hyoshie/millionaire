@@ -1,6 +1,6 @@
 import { Button, SimpleGrid, Text } from '@chakra-ui/react';
 import { BackToHomeButton } from './BackToHomeButton';
-import { CorrectOption, Question } from 'src/types/index';
+import { CorrectOption, Question, QuizStatus } from 'src/types/index';
 
 // 回答ボタンをレンダリングするためのコンポーネント
 type OptionButtonProps = {
@@ -26,26 +26,20 @@ const OptionButton = ({
 // 回答ボタンをレンダリングするためのコンポーネント
 type OptionButtonsProps = {
   question: Question;
-  selectedOption: CorrectOption | null;
-  isCorrect: boolean | null;
+  quizStatus: QuizStatus;
   checkAnswer: (option: CorrectOption) => void;
 };
 
-const OptionButtons = ({
-  question,
-  selectedOption,
-  isCorrect,
-  checkAnswer,
-}: OptionButtonsProps) => {
+const OptionButtons = ({ question, quizStatus, checkAnswer }: OptionButtonsProps) => {
   const optionLabels = ['A', 'B', 'C', 'D'];
+  const isDisabled = quizStatus !== 'ongoing';
 
   return (
     <SimpleGrid columns={2} spacing={4} w='100%'>
       {optionLabels.map((label) => {
         const option = label.toLowerCase() as CorrectOption;
-        const isSelected = selectedOption === option;
-        const isDisabled = selectedOption !== null;
-        const colorScheme = isSelected ? (isCorrect ? 'green' : 'red') : 'blue';
+        const isCorrectAnswer = question.correct_option === option;
+        const colorScheme = isCorrectAnswer && isDisabled ? 'green' : 'blue';
         const optionText = String(question[`option_${option}` as keyof Question]);
 
         return (
@@ -65,19 +59,14 @@ const OptionButtons = ({
 
 // 次の質問に進むボタンをレンダリングするためのコンポーネント
 type NextOrBackButtonProps = {
-  selectedOption: CorrectOption | null;
-  isCorrect: boolean | null;
+  quizStatus: QuizStatus;
   nextQuestionOrResult: () => void;
 };
 
-const NextOrBackButton = ({
-  selectedOption,
-  isCorrect,
-  nextQuestionOrResult,
-}: NextOrBackButtonProps) => {
-  if (selectedOption === null || isCorrect === null) return null;
+const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBackButtonProps) => {
+  if (quizStatus === 'ongoing') return null;
 
-  return isCorrect ? (
+  return quizStatus === 'correct' ? (
     <Button colorScheme='blue' onClick={nextQuestionOrResult}>
       Next Question
     </Button>
@@ -89,33 +78,17 @@ const NextOrBackButton = ({
 // クイズの表示をレンダリングするためのコンポーネント
 type QuizProps = {
   question: Question;
-  selectedOption: CorrectOption | null;
-  isCorrect: boolean | null;
+  quizStatus: QuizStatus;
   checkAnswer: (option: CorrectOption) => void;
   nextQuestionOrResult: () => void;
 };
 
-export const Quiz = ({
-  question,
-  selectedOption,
-  isCorrect,
-  checkAnswer,
-  nextQuestionOrResult,
-}: QuizProps) => {
+export const Quiz = ({ question, quizStatus, checkAnswer, nextQuestionOrResult }: QuizProps) => {
   return (
     <>
       <Text fontSize='2xl'>{question.question}</Text>
-      <OptionButtons
-        question={question}
-        selectedOption={selectedOption}
-        isCorrect={isCorrect}
-        checkAnswer={checkAnswer}
-      />
-      <NextOrBackButton
-        selectedOption={selectedOption}
-        isCorrect={isCorrect}
-        nextQuestionOrResult={nextQuestionOrResult}
-      />
+      <OptionButtons question={question} quizStatus={quizStatus} checkAnswer={checkAnswer} />
+      <NextOrBackButton quizStatus={quizStatus} nextQuestionOrResult={nextQuestionOrResult} />
     </>
   );
 };
