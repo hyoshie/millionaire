@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import axios from 'axios';
 import { useFetchQuestions } from '../useFetchQuestions';
-import { CorrectOption, Difficulty, Question } from '@/types';
+import { Option, Difficulty, Question } from '@/types';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -12,12 +12,12 @@ const mockQuestions: Question[] = [
     id: 1,
     category_id: 1,
     question: 'テスト質問1',
-    correct_option: 'a' as CorrectOption,
+    correct_option: 'a',
     option_a: '選択肢1',
     option_b: '選択肢2',
     option_c: '選択肢3',
     option_d: '選択肢4',
-    difficulty: 'easy' as Difficulty,
+    difficulty: 'easy',
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -25,12 +25,12 @@ const mockQuestions: Question[] = [
     id: 2,
     category_id: 2,
     question: 'テスト質問2',
-    correct_option: 'b' as CorrectOption,
+    correct_option: 'b',
     option_a: '選択肢1',
     option_b: '選択肢2',
     option_c: '選択肢3',
     option_d: '選択肢4',
-    difficulty: 'easy' as Difficulty,
+    difficulty: 'easy',
     created_at: new Date(),
     updated_at: new Date(),
   },

@@ -1,6 +1,6 @@
 import { Button, SimpleGrid, Text } from '@chakra-ui/react';
 import { BackToHomeButton } from './BackToHomeButton';
-import { CorrectOption, Question, QuizStatus } from 'src/types/index';
+import { Option, Question, QuizStatus } from 'src/types/index';
 
 // 回答ボタンをレンダリングするためのコンポーネント
 type OptionButtonProps = {
@@ -27,7 +27,7 @@ const OptionButton = ({
 type OptionButtonsProps = {
   question: Question;
   quizStatus: QuizStatus;
-  checkAnswer: (option: CorrectOption) => void;
+  checkAnswer: (option: Option) => void;
 };
 
 const OptionButtons = ({ question, quizStatus, checkAnswer }: OptionButtonsProps) => {
@@ -37,7 +37,7 @@ const OptionButtons = ({ question, quizStatus, checkAnswer }: OptionButtonsProps
   return (
     <SimpleGrid columns={2} spacing={4} w='100%'>
       {optionLabels.map((label) => {
-        const option = label.toLowerCase() as CorrectOption;
+        const option = label.toLowerCase() as Option;
         const isCorrectAnswer = question.correct_option === option;
         const colorScheme = isCorrectAnswer && isDisabled ? 'green' : 'blue';
         const optionText = String(question[`option_${option}` as keyof Question]);
@@ -79,7 +79,7 @@ const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBackButton
 type QuizProps = {
   question: Question;
   quizStatus: QuizStatus;
-  checkAnswer: (option: CorrectOption) => void;
+  checkAnswer: (option: Option) => void;
   nextQuestionOrResult: () => void;
 };
 

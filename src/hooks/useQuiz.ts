@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Question, CorrectOption, QuizStatus } from '../types';
+import { Question, Option, QuizStatus } from '../types';
 
 // クイズ状態を管理するためのカスタムフック
 export const useQuiz = (questions: Question[]) => {
@@ -12,7 +12,7 @@ export const useQuiz = (questions: Question[]) => {
   const router = useRouter();
 
   // 回答をチェックするための関数
-  const checkAnswer = (option: CorrectOption) => {
+  const checkAnswer = (option: Option) => {
     setQuizStatus(option === currentQuestion.correct_option ? 'correct' : 'incorrect');
   };
 
