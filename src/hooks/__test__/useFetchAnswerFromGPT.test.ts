@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import axios from 'axios';
 import { useFetchAnswerFromGPT } from '../useFetchAnswerFromGPT';
 
@@ -17,11 +17,13 @@ describe('useFetchAnswerFromGPT', () => {
 
     expect(result.current.isLoading).toBe(false);
 
-    const answer = await result.current.fetchAnswerFromGPT('テスト入力');
+    await act(async () => {
+      const answer = await result.current.fetchAnswerFromGPT('テスト入力');
 
-    expect(result.current.isLoading).toBe(false);
-    expect(answer).toEqual(mockResponse.message);
-    expect(result.current.error).toBe(null);
+      expect(result.current.isLoading).toBe(false);
+      expect(answer).toEqual(mockResponse.message);
+      expect(result.current.error).toBe(null);
+    });
   });
 
   it('GPTからの回答取得に失敗した場合、エラーを返すこと', async () => {
@@ -32,13 +34,15 @@ describe('useFetchAnswerFromGPT', () => {
 
     expect(result.current.isLoading).toBe(false);
 
-    try {
-      await result.current.fetchAnswerFromGPT('テスト入力');
-    } catch (error) {
-      const typedError = error as Error;
-      expect(result.current.isLoading).toBe(false);
-      expect(typedError.message).toBe(errorMessage);
-      expect(result.current.error.message).toBe(errorMessage);
-    }
+    await act(async () => {
+      try {
+        await result.current.fetchAnswerFromGPT('テスト入力');
+      } catch (error) {
+        const typedError = error as Error;
+        expect(result.current.isLoading).toBe(false);
+        expect(typedError.message).toBe(errorMessage);
+        expect(result.current.error.message).toBe(errorMessage);
+      }
+    });
   });
 });
