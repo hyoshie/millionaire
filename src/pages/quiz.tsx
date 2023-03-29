@@ -45,6 +45,7 @@ export default function QuizPage() {
           <ProgressBar progressValue={progressValue} />
           {/* 電話ボタンを追加する */}
           <PhoneAFriend currentQuestion={currentQuestion} />
+          <AskTheAudience currentQuestion={currentQuestion} />
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}

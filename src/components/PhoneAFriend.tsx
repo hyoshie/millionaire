@@ -13,9 +13,9 @@ import { useState } from 'react';
 import { useFetchAnswerFromGPT } from '@/hooks/useFetchAnswerFromGPT';
 import { Question } from '@/types';
 
-interface PhoneAFriendProps {
+type PhoneAFriendProps = {
   currentQuestion: Question;
-}
+};
 
 export const PhoneAFriend = ({ currentQuestion }: PhoneAFriendProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
@@ -36,7 +36,7 @@ export const PhoneAFriend = ({ currentQuestion }: PhoneAFriendProps) => {
     <Popover placement='top'>
       <PopoverTrigger>
         <Button colorScheme='teal' onClick={handleOnClick} isDisabled={gptAnswer !== ''}>
-          {gptAnswer !== '' ? 'Phone Used' : 'Phone a Friend'}
+          {gptAnswer !== '' ? 'Used' : 'Phone a Friend'}
         </Button>
       </PopoverTrigger>
       <PopoverContent>

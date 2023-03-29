@@ -11,20 +11,19 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { useFetchAnswerFromAudience } from '@/hooks/useFetchAnswerFromAudience';
 import { Question } from '@/types';
 
-interface AskTheAudienceProps {
-  usedAudience: boolean;
-  fetchAnswerFromAudience: (query: string) => Promise<string>;
-  input: Question;
-}
+type AskTheAudienceProps = {
+  currentQuestion: Question;
+};
 
 type OptionPercentage = {
   option: string;
   percentage: number;
 };
 
-const data = [
+const data: OptionPercentage[] = [
   {
     option: 'A',
     percentage: 40,
@@ -43,35 +42,28 @@ const data = [
   },
 ];
 
-export const AskTheAudience = ({
-  usedAudience,
-  fetchAnswerFromAudience,
-  input,
-}: AskTheAudienceProps) => {
-  const [audienceAnswer, setAudienceAnswer] = useState<string>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
+export const AskTheAudience = ({ currentQuestion }: AskTheAudienceProps) => {
+  const [audienceAnswer, setAudienceAnswer] = useState<string>('');
+  const { fetchAnswerFromAudience, isLoading, error } = useFetchAnswerFromAudience();
+
+  // エラーがある場合はエラーメッセージを表示する
+  if (error) {
+    return <p>Error</p>;
+  }
 
   const handleOnClick = async () => {
-    try {
-      setIsLoading(true);
-      const answer = await fetchAnswerFromAudience(input.question);
-      setAudienceAnswer(answer);
-      const json = JSON.parse(answer);
-      alert(json);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
+    const answer = await fetchAnswerFromAudience(currentQuestion);
+    setAudienceAnswer(answer);
+    // const json = JSON.parse(answer);
+    // alert(json);
   };
 
   return (
     <>
       <Popover placement='top'>
         <PopoverTrigger>
-          <Button colorScheme='teal' onClick={handleOnClick} isDisabled={usedAudience}>
-            {usedAudience ? 'Used' : 'Ask the Audience'}
+          <Button colorScheme='teal' onClick={handleOnClick} isDisabled={audienceAnswer !== ''}>
+            {audienceAnswer !== '' ? 'Used' : 'Ask the Audience'}
           </Button>
         </PopoverTrigger>
         <PopoverContent>
