@@ -1,13 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
-import { Configuration, OpenAIApi } from 'openai';
-import { OPENAI_API_KEY } from '@/config';
 import { Question } from '@/types';
-
-// TODO: この部分をphoneAFriend.tsと共通化する
-const configuration = new Configuration({
-  apiKey: OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+import { openai, openaiConfiguration } from 'lib/openAIClient';
 
 const chatTypeToPrompt = (currentQuestion: Question) => {
   // TODO: ここでランダムに回答の精度が決まるようにする
@@ -18,13 +11,13 @@ const chatTypeToPrompt = (currentQuestion: Question) => {
 	問題：${currentQuestion.question}
 	選択肢：A: ${currentQuestion.option_a}, B: ${currentQuestion.option_b}, C: ${currentQuestion.option_c}, D: ${currentQuestion.option_d}
 	
-	上記の4択問題について、一般的な回答割合を教えて。最大の割合を40%以下にしてください。その他はなしです。`;
+	上記の4択問題について、一般的な回答割合を教えて。絶対に一つのoptionのpercentageが100にはならないように。できるだけ拮抗する結果を出して。その他のoptionはありません。`;
   return prompts;
 };
 
 // bodyにchatTypeを含める。chatTypeはbegin, middle, endのいずれか。
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (configuration.apiKey === undefined) {
+  if (openaiConfiguration.apiKey === undefined) {
     res.status(500).json({
       error: {
         message: 'No API key',
