@@ -1,7 +1,9 @@
 import { Center, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
+import { FiftyFiftyButton } from '@/components/FiftyFiftyButton';
 import { PhoneAFriend } from '@/components/PhoneAFriend';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useFiftyFifty } from '@/hooks/useFiftyFifty';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -17,6 +19,7 @@ export default function QuizPage() {
     currentQuestionIndex,
     timeLeft,
   } = useQuiz(questions);
+  const { hiddenOptions, handleFiftyFifty } = useFiftyFifty(currentQuestion);
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
@@ -34,6 +37,7 @@ export default function QuizPage() {
   if (error) {
     return <p>Error</p>;
   }
+  console.log(hiddenOptions);
 
   return (
     <>
@@ -51,12 +55,14 @@ export default function QuizPage() {
           <ProgressBar progressValue={progressValue} />
           {/* 電話ボタンを追加する */}
           <PhoneAFriend currentQuestion={currentQuestion} quizStatus={quizStatus} />
+          <FiftyFiftyButton quizStatus={quizStatus} handleFiftyFifty={handleFiftyFifty} />
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}
             quizStatus={quizStatus}
             checkAnswer={checkAnswer}
             nextQuestionOrResult={nextQuestionOrResult}
+            hiddenOptions={hiddenOptions}
           />
         </VStack>
       </Center>

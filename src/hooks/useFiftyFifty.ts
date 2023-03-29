@@ -1,24 +1,29 @@
-import { useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { QUIZ_OPTIONS } from '@/constants';
-import { Option, Question } from '@/types';
+import { Question, Option } from '@/types';
 
-export const useFiftyFifty = (currentQuestion: Question) => {
-  const hiddenQuestions = useMemo(() => {
-    const incorrectOptions = QUIZ_OPTIONS.filter(
-      (option) => option !== currentQuestion.correct_option,
-    );
-    const randomOptionIndex = Math.floor(Math.random() * incorrectOptions.length);
-    return incorrectOptions.filter((option, index) => index !== randomOptionIndex);
-  }, [currentQuestion]);
+export const useFiftyFifty = (question: Question) => {
+  const [hiddenOptions, setHiddenOptions] = useState<Option[]>([]);
 
-  // hiddenQuestionsの長さが2でない場合は警告を出す
   useEffect(() => {
-    if (hiddenQuestions.length !== 2) {
-      console.warn(`useFiftyFifty: hiddenQuestions must be 2, but got ${hiddenQuestions.length}`);
-    }
-  }, [hiddenQuestions]);
+    setHiddenOptions([]);
+  }, [question]);
 
-  return {
-    hiddenQuestions,
-  };
+  const handleFiftyFifty = useCallback(() => {
+    const correctOption = question.correct_option;
+    const incorrectOptions = QUIZ_OPTIONS.filter((option) => option !== correctOption);
+
+    const hiddenOptions: Option[] = [];
+    while (hiddenOptions.length < 2) {
+      const randomIndex = Math.floor(Math.random() * incorrectOptions.length);
+      const randomOption = incorrectOptions[randomIndex];
+      if (!hiddenOptions.includes(randomOption)) {
+        hiddenOptions.push(randomOption);
+      }
+    }
+
+    setHiddenOptions(hiddenOptions);
+  }, [question]);
+
+  return { hiddenOptions, handleFiftyFifty };
 };
