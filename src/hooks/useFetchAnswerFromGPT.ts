@@ -9,13 +9,9 @@ export const useFetchAnswerFromGPT = () => {
     try {
       setIsLoading(true);
       const response = await axios.post('/api/lifelines/phoneAFriend', { userInput });
-
-      if (response.status !== 200) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
       return response.data.message;
     } catch (error) {
-      setError;
+      setError(error);
     } finally {
       setIsLoading(false);
     }
