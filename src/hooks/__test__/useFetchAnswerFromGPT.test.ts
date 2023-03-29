@@ -13,7 +13,7 @@ describe('useFetchAnswerFromGPT', () => {
   it('GPTからの回答取得に成功した場合、回答データが返されること', async () => {
     mockedAxios.post.mockResolvedValue({ data: mockResponse });
 
-    const { result, waitForNextUpdate } = renderHook(() => useFetchAnswerFromGPT());
+    const { result } = renderHook(() => useFetchAnswerFromGPT());
 
     expect(result.current.isLoading).toBe(false);
 
@@ -30,7 +30,7 @@ describe('useFetchAnswerFromGPT', () => {
     const errorMessage = 'GPTからの回答取得に失敗しました。';
     mockedAxios.post.mockRejectedValue(new Error(errorMessage));
 
-    const { result, waitForNextUpdate } = renderHook(() => useFetchAnswerFromGPT());
+    const { result } = renderHook(() => useFetchAnswerFromGPT());
 
     expect(result.current.isLoading).toBe(false);
 
