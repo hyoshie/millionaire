@@ -1,8 +1,10 @@
 import { Center, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { AskTheAudienceButton } from '@/components/AskTheAudienceButton';
+import { FiftyFiftyButton } from '@/components/FiftyFiftyButton';
 import { PhoneAFriendButton } from '@/components/PhoneAFriendButton';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useFiftyFifty } from '@/hooks/useFiftyFifty';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -18,6 +20,7 @@ export default function QuizPage() {
     currentQuestionIndex,
     timeLeft,
   } = useQuiz(questions);
+  const { hiddenOptions, handleFiftyFifty } = useFiftyFifty(currentQuestion);
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
@@ -54,14 +57,15 @@ export default function QuizPage() {
           <HStack spacing={4}>
             <PhoneAFriendButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
             <AskTheAudienceButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
+            <FiftyFiftyButton quizStatus={quizStatus} handleFiftyFifty={handleFiftyFifty} />
           </HStack>
-          {/* 電話ボタンを追加する */}
           {/* Quizコンポーネントに必要なプロップスを渡す */}
           <Quiz
             question={currentQuestion}
             quizStatus={quizStatus}
             checkAnswer={checkAnswer}
             nextQuestionOrResult={nextQuestionOrResult}
+            hiddenOptions={hiddenOptions}
           />
         </VStack>
       </Center>

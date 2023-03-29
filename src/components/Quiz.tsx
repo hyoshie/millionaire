@@ -28,18 +28,25 @@ type OptionButtonsProps = {
   question: Question;
   quizStatus: QuizStatus;
   checkAnswer: (option: Option) => void;
+  hiddenOptions: Option[];
 };
 
-const OptionButtons = ({ question, quizStatus, checkAnswer }: OptionButtonsProps) => {
+const OptionButtons = ({
+  question,
+  quizStatus,
+  checkAnswer,
+  hiddenOptions,
+}: OptionButtonsProps) => {
   const optionLabels = ['A', 'B', 'C', 'D'];
-  const isDisabled = quizStatus !== 'ongoing';
+  const isQuestionFinished = quizStatus !== 'ongoing';
 
   return (
     <SimpleGrid columns={2} spacing={4} w='100%'>
       {optionLabels.map((label) => {
         const option = label.toLowerCase() as Option;
         const isCorrectAnswer = question.correct_option === option;
-        const colorScheme = isCorrectAnswer && isDisabled ? 'green' : 'blue';
+        const isDisabled = isQuestionFinished || hiddenOptions.includes(option);
+        const colorScheme = isCorrectAnswer && isQuestionFinished ? 'green' : 'blue';
         const optionText = String(question[`option_${option}` as keyof Question]);
 
         return (
@@ -81,13 +88,25 @@ type QuizProps = {
   quizStatus: QuizStatus;
   checkAnswer: (option: Option) => void;
   nextQuestionOrResult: () => void;
+  hiddenOptions: Option[];
 };
 
-export const Quiz = ({ question, quizStatus, checkAnswer, nextQuestionOrResult }: QuizProps) => {
+export const Quiz = ({
+  question,
+  quizStatus,
+  checkAnswer,
+  nextQuestionOrResult,
+  hiddenOptions,
+}: QuizProps) => {
   return (
     <>
       <Text fontSize='2xl'>{question.question}</Text>
-      <OptionButtons question={question} quizStatus={quizStatus} checkAnswer={checkAnswer} />
+      <OptionButtons
+        question={question}
+        quizStatus={quizStatus}
+        checkAnswer={checkAnswer}
+        hiddenOptions={hiddenOptions}
+      />
       <NextOrBackButton quizStatus={quizStatus} nextQuestionOrResult={nextQuestionOrResult} />
     </>
   );
