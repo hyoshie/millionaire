@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Question, Option, QuizStatus } from '../types';
@@ -7,6 +8,7 @@ export const useQuiz = (questions: Question[]) => {
   // 現在の質問番号、クイズの進行状況をuseStateで管理する
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizStatus, setQuizStatus] = useState<QuizStatus>('ongoing');
+  const [usedPhone, setUsedPhone] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
   const router = useRouter();
@@ -31,6 +33,20 @@ export const useQuiz = (questions: Question[]) => {
     setQuizStatus('ongoing');
   };
 
+  const fetchAnswerFromGPT = async (userInput: string) => {
+    try {
+      setUsedPhone(true);
+      const response = await axios.post('/api/lifelines/phoneAFriend', { userInput });
+
+      if (response.status !== 200) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.data.message;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // クイズ状態を返す
   return {
     currentQuestion,
@@ -38,5 +54,7 @@ export const useQuiz = (questions: Question[]) => {
     quizStatus,
     checkAnswer,
     nextQuestionOrResult,
+    usedPhone,
+    fetchAnswerFromGPT,
   };
 };

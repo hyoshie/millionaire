@@ -2,7 +2,6 @@ import { Center, Heading, Spinner, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { PhoneAFriend } from '@/components/PhoneAFriend';
 import { ProgressBar } from '@/components/ProgressBar';
-import { useLifelines } from '@/hooks/useLifelines';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -10,9 +9,15 @@ import { useQuiz } from 'src/hooks/useQuiz';
 export default function QuizPage() {
   // データのフェッチとクイズ状態を取得する
   const { questions, isLoading, error } = useFetchQuestions();
-  const { currentQuestion, quizStatus, checkAnswer, nextQuestionOrResult, currentQuestionIndex } =
-    useQuiz(questions);
-  const { usedPhone, fetchAnswerFromGPT } = useLifelines();
+  const {
+    currentQuestion,
+    quizStatus,
+    checkAnswer,
+    nextQuestionOrResult,
+    currentQuestionIndex,
+    usedPhone,
+    fetchAnswerFromGPT,
+  } = useQuiz(questions);
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
