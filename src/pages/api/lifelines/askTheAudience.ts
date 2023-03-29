@@ -12,7 +12,7 @@ const openai = new OpenAIApi(configuration);
 const chatTypeToPrompt = (currentQuestion: Question) => {
   // TODO: ここでランダムに回答の精度が決まるようにする
   const prompts = `答えは下の回答例のようなjson形式のみで返してください。その他の言葉は入れないでください。
-	回答例１："[
+	回答例１：[
 		{
 			option: 'A',
 			percentage: 40,
@@ -29,8 +29,8 @@ const chatTypeToPrompt = (currentQuestion: Question) => {
 			option: 'D',
 			percentage: 27,
 		},
-	]"
-	回答例２："[
+	]
+	回答例２：[
 		{
 			option: 'A',
 			percentage: 30,
@@ -47,7 +47,7 @@ const chatTypeToPrompt = (currentQuestion: Question) => {
 			option: 'D',
 			percentage: 37,
 		},
-	]"
+	]
 	
 	問題：${currentQuestion.question}
 	選択肢：A: ${currentQuestion.option_a}, B: ${currentQuestion.option_b}, C: ${currentQuestion.option_c}, D: ${currentQuestion.option_d}
