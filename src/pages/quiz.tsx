@@ -1,7 +1,9 @@
 import { Center, Heading, Spinner, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
+import { AskTheAudience } from '@/components/AskTheAudience';
 import { PhoneAFriend } from '@/components/PhoneAFriend';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useLifelines } from '@/hooks/useLifelines';
 import { Quiz } from 'src/components/Quiz';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
@@ -9,15 +11,10 @@ import { useQuiz } from 'src/hooks/useQuiz';
 export default function QuizPage() {
   // データのフェッチとクイズ状態を取得する
   const { questions, isLoading, error } = useFetchQuestions();
-  const {
-    currentQuestion,
-    quizStatus,
-    checkAnswer,
-    nextQuestionOrResult,
-    currentQuestionIndex,
-    usedPhone,
-    fetchAnswerFromGPT,
-  } = useQuiz(questions);
+  const { currentQuestion, quizStatus, checkAnswer, nextQuestionOrResult, currentQuestionIndex } =
+    useQuiz(questions);
+  const { usedPhone, fetchAnswerFromGPT, usedAudience, fetchAnswerFromAudience } =
+    useLifelines(currentQuestion);
 
   // プログレスバーの値を計算する
   const progressValue = (currentQuestionIndex / questions.length) * 100;
@@ -53,6 +50,11 @@ export default function QuizPage() {
           <PhoneAFriend
             usedPhone={usedPhone}
             fetchAnswerFromGPT={fetchAnswerFromGPT}
+            input={currentQuestion}
+          />
+          <AskTheAudience
+            usedAudience={usedAudience}
+            fetchAnswerFromAudience={fetchAnswerFromAudience}
             input={currentQuestion}
           />
           {/* Quizコンポーネントに必要なプロップスを渡す */}
