@@ -18,6 +18,14 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export type QuizStatus = 'ongoing' | 'correct' | 'incorrect';
 
+export type Category = {
+  id: number;
+  name: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
+};
+
 export type OptionPercentage = {
   option: string;
   percentage: number;

@@ -1,5 +1,6 @@
 import { Center, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { AskTheAudienceButton } from '@/components/AskTheAudienceButton';
 import { FiftyFiftyButton } from '@/components/FiftyFiftyButton';
 import { PhoneAFriendButton } from '@/components/PhoneAFriendButton';
@@ -10,8 +11,12 @@ import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 import { useQuiz } from 'src/hooks/useQuiz';
 
 export default function QuizPage() {
+  const router = useRouter();
+  const queryCategory = router.query.category;
+  const category = typeof queryCategory === 'string' ? queryCategory : undefined;
+
   // データのフェッチとクイズ状態を取得する
-  const { questions, isLoading, error } = useFetchQuestions();
+  const { questions, isLoading, error } = useFetchQuestions({ category });
   const {
     currentQuestion,
     quizStatus,
