@@ -1,6 +1,7 @@
 import { Center, Spinner } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { QuizBox } from '@/components/QuizBox';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 
@@ -9,6 +10,13 @@ export default function QuizPage() {
   const queryCategory = router.query.category;
   const category = typeof queryCategory === 'string' ? queryCategory : undefined;
   const { questions, isLoading, error } = useFetchQuestions({ category });
+
+  // categoryがundefinedの場合、ホーム画面にリダイレクトする
+  useEffect(() => {
+    if (!category) {
+      router.push('/');
+    }
+  }, [category, router]);
 
   if (isLoading) {
     return (

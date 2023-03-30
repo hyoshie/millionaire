@@ -16,6 +16,11 @@ export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        // 毎回状態をリセットすることで、前回の状態が残らないようにする
+        setIsLoading(true);
+        setError(null);
+        setQuestions([]);
+
         const response = await axios.get(`/api/questions/random/?category=${category || ''}`);
         setQuestions(response.data);
       } catch (error) {
@@ -25,7 +30,7 @@ export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => 
       }
     };
     fetchQuestions();
-  }, []);
+  }, [category]);
 
   // 質問、ローディング中かどうか、エラーが発生したかどうかを返す
   return { questions, isLoading, error };
