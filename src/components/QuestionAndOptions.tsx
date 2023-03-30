@@ -1,5 +1,6 @@
 import { Button, SimpleGrid, Text } from '@chakra-ui/react';
 import { BackToHomeButton } from './BackToHomeButton';
+import { QUIZ_OPTIONS } from '@/constants';
 import { Option, Question, QuizStatus } from 'src/types/index';
 
 // 回答ボタンをレンダリングするためのコンポーネント
@@ -37,13 +38,12 @@ const OptionButtons = ({
   checkAnswer,
   hiddenOptions,
 }: OptionButtonsProps) => {
-  const optionLabels = ['A', 'B', 'C', 'D'];
   const isQuestionFinished = quizStatus !== 'ongoing';
 
   return (
     <SimpleGrid columns={2} spacing={4} w='100%'>
-      {optionLabels.map((label) => {
-        const option = label.toLowerCase() as Option;
+      {QUIZ_OPTIONS.map((option) => {
+        const label = option.toUpperCase();
         const isCorrectAnswer = question.correct_option === option;
         const isDisabled = isQuestionFinished || hiddenOptions.includes(option);
         const colorScheme = isCorrectAnswer && isQuestionFinished ? 'green' : 'blue';
@@ -83,7 +83,7 @@ const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBackButton
 };
 
 // クイズの表示をレンダリングするためのコンポーネント
-type QuizProps = {
+type QuestionAndOptionsProps = {
   question: Question;
   quizStatus: QuizStatus;
   checkAnswer: (_option: Option) => void;
@@ -91,13 +91,13 @@ type QuizProps = {
   hiddenOptions: Option[];
 };
 
-export const Quiz = ({
+export const QuestionAndOptions = ({
   question,
   quizStatus,
   checkAnswer,
   nextQuestionOrResult,
   hiddenOptions,
-}: QuizProps) => {
+}: QuestionAndOptionsProps) => {
   return (
     <>
       <Text fontSize='2xl'>{question.question}</Text>

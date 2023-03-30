@@ -15,7 +15,7 @@ describe('useFetchAnswerFromGPT', () => {
 
     const { result } = renderHook(() => useFetchAnswerFromGPT());
 
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isLoading).toBe(true);
 
     await act(async () => {
       const answer = await result.current.fetchAnswerFromGPT('テスト入力');
@@ -32,7 +32,7 @@ describe('useFetchAnswerFromGPT', () => {
 
     const { result } = renderHook(() => useFetchAnswerFromGPT());
 
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isLoading).toBe(true);
 
     await act(async () => {
       try {

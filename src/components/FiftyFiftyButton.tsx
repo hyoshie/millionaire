@@ -20,7 +20,7 @@ export const FiftyFiftyButton = ({ quizStatus, handleFiftyFifty }: FiftyFiftyBut
       onClick={handleOnClick}
       isDisabled={used || quizStatus !== 'ongoing'}
     >
-      {used ? 'Fifty-Fifty Used' : 'Fifty-Fifty'}
+      {used ? 'Used' : 'Fifty-Fifty'}
     </Button>
   );
 };

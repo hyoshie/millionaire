@@ -10,13 +10,12 @@ type UseFetchQuestionsProps = {
 export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => {
   // 質問の配列、ローディング中かどうか、エラーが発生したかどうかをuseStateで管理する
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        setIsLoading(true);
         const response = await axios.get(`/api/questions/random/?category=${category || ''}`);
         setQuestions(response.data);
       } catch (error) {

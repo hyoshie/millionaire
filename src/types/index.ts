@@ -27,6 +27,6 @@ export type Category = {
 };
 
 export type OptionPercentage = {
-  option: string;
+  option: Option;
   percentage: number;
 };
