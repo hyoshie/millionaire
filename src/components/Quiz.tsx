@@ -27,7 +27,7 @@ const OptionButton = ({
 type OptionButtonsProps = {
   question: Question;
   quizStatus: QuizStatus;
-  checkAnswer: (option: Option) => void;
+  checkAnswer: (_option: Option) => void;
   hiddenOptions: Option[];
 };
 
@@ -86,7 +86,7 @@ const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBackButton
 type QuizProps = {
   question: Question;
   quizStatus: QuizStatus;
-  checkAnswer: (option: Option) => void;
+  checkAnswer: (_option: Option) => void;
   nextQuestionOrResult: () => void;
   hiddenOptions: Option[];
 };

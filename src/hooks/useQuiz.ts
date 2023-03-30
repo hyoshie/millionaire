@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Question, Option, QuizStatus } from '../types';
 import { useTimer } from './useTimer';
 import { QUIZ_QUESTION_TIME } from '@/constants';
@@ -19,13 +18,13 @@ export const useQuiz = (questions: Question[]) => {
   };
   const { timeLeft, startTimer, stopTimer, resetTimer } = useTimer(QUIZ_QUESTION_TIME, onTimeOut);
 
-  // 質問が変わるたびにタイマーをリセットして再開する
+  // 質問データを取得するか質問が変わる度にタイマーをリセットして再開する
   useEffect(() => {
-    if (currentQuestionIndex >= 0) {
+    if (currentQuestion) {
       resetTimer();
       startTimer();
     }
-  }, [currentQuestionIndex, startTimer, resetTimer]);
+  }, [currentQuestion, startTimer, resetTimer]);
 
   // 回答をチェックするための関数
   const checkAnswer = (option: Option) => {

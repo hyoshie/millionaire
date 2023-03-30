@@ -1,4 +1,4 @@
-import { Button, Center, Container, Flex, Image, VStack } from '@chakra-ui/react';
+import { Button, Center, Container, Image, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
