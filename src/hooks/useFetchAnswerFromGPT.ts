@@ -2,12 +2,11 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const useFetchAnswerFromGPT = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
   const fetchAnswerFromGPT = async (userInput: string) => {
     try {
-      setIsLoading(true);
       const response = await axios.post('/api/lifelines/phoneAFriend', { userInput });
       return response.data.message;
     } catch (error) {

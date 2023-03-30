@@ -33,7 +33,7 @@ describe('useFetchAnswerFromAudience', () => {
 
     const { result } = renderHook(() => useFetchAnswerFromAudience());
 
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isLoading).toBe(true);
 
     let answer;
     await act(async () => {
@@ -51,7 +51,7 @@ describe('useFetchAnswerFromAudience', () => {
 
     const { result } = renderHook(() => useFetchAnswerFromAudience());
 
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isLoading).toBe(true);
 
     await act(async () => {
       await result.current.fetchAnswerFromAudience(mockQuestion);

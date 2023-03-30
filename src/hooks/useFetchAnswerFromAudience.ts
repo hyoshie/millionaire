@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { Question } from '@/types';
 
 export const useFetchAnswerFromAudience = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
   const fetchAnswerFromAudience = async (currentQuestion: Question) => {
     try {
-      setIsLoading(true);
       const response = await axios.post('/api/lifelines/askTheAudience', { currentQuestion });
       return response.data.message;
     } catch (error) {
