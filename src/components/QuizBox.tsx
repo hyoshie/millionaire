@@ -13,7 +13,6 @@ type QuizBoxProps = {
 };
 
 export const QuizBox = ({ questions }: QuizBoxProps) => {
-  console.log('hello');
   // クイズの状態を取得する
   const {
     currentQuestion,

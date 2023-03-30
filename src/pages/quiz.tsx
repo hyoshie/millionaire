@@ -5,7 +5,6 @@ import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 
 export default function QuizPage() {
   const { questions, isLoading, error } = useFetchQuestions();
-  console.log('questions', questions);
 
   if (isLoading) {
     return (
