@@ -83,7 +83,7 @@ const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBackButton
 };
 
 // クイズの表示をレンダリングするためのコンポーネント
-type QuizProps = {
+type QuestionAndOptionsProps = {
   question: Question;
   quizStatus: QuizStatus;
   checkAnswer: (_option: Option) => void;
@@ -91,13 +91,13 @@ type QuizProps = {
   hiddenOptions: Option[];
 };
 
-export const Quiz = ({
+export const QuestionAndOptions = ({
   question,
   quizStatus,
   checkAnswer,
   nextQuestionOrResult,
   hiddenOptions,
-}: QuizProps) => {
+}: QuestionAndOptionsProps) => {
   return (
     <>
       <Text fontSize='2xl'>{question.question}</Text>
