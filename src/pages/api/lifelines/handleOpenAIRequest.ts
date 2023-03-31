@@ -1,9 +1,9 @@
 import { type NextApiRequest } from 'next';
-import { openai } from 'lib/openAIClient';
+import { openAI } from 'lib/openAIClient';
 
 export async function handleOpenAIRequest(req: NextApiRequest, chatPrompt: string) {
   try {
-    const completion = await openai.createChatCompletion({
+    const completion = await openAI.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
         {

@@ -1,7 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import { handleOpenAIRequest } from './handleOpenAIRequest';
 import { Question } from '@/types';
-import { openaiConfiguration } from 'lib/openAIClient';
+import { openAIConfiguration } from 'lib/openAIClient';
 
 const chatTypeToPrompt = (currentQuestion: Question) => {
   // TODO: ここでランダムに回答の精度が決まるようにする
@@ -18,7 +18,7 @@ const chatTypeToPrompt = (currentQuestion: Question) => {
 
 // bodyにchatTypeを含める。chatTypeはbegin, middle, endのいずれか。
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (openaiConfiguration.apiKey === undefined) {
+  if (openAIConfiguration.apiKey === undefined) {
     res.status(500).json({
       error: {
         message: 'No API key',
