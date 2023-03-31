@@ -11,6 +11,7 @@ import {
 import { useState } from 'react';
 import { FaUsers } from 'react-icons/fa';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { MAIN_COLOR } from '@/constants';
 import { useFetchAnswerFromAudience } from '@/hooks/useFetchAnswerFromAudience';
 import { OptionPercentage, Question, QuizStatus } from '@/types';
 
@@ -38,10 +39,11 @@ export const AudienceButton = ({ currentQuestion, quizStatus }: AudienceButtonPr
       <Popover placement='top'>
         <PopoverTrigger>
           <IconButton
-            size='lg'
+            size='md'
             aria-label='Audience'
+            variant='outline'
             icon={<FaUsers />}
-            colorScheme='blue'
+            colorScheme={MAIN_COLOR}
             onClick={handleOnClick}
             isDisabled={audienceAnswer !== undefined || quizStatus !== 'ongoing'}
           />

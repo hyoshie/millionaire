@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { CategorySelect } from '@/components/CategorySelect';
+import { MAIN_COLOR } from '@/constants';
 
 export default function Home() {
   const router = useRouter();
@@ -31,7 +32,7 @@ export default function Home() {
             {/* カテゴリ選択リスト */}
             <CategorySelect category={category} setCategory={setCategory} />
             {/* スタートボタンを表示する */}
-            <Button colorScheme='blue' onClick={onStartQuiz} size='lg'>
+            <Button colorScheme={MAIN_COLOR} onClick={onStartQuiz}>
               Start Quiz
             </Button>
           </Container>
