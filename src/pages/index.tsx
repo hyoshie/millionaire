@@ -1,10 +1,17 @@
 import { Button, Center, Container, VStack, Image } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { CategorySelect } from '@/components/CategorySelect';
+import { Category } from '@/types';
+import { fetchCategories } from 'lib/fetchCategories';
 
-export default function Home() {
+type HomeProps = {
+  categories: Category[];
+};
+
+export default function Home({ categories }: HomeProps) {
   const router = useRouter();
   const [category, setCategory] = useState('');
 
@@ -29,7 +36,7 @@ export default function Home() {
           <Image src='/logo.png' alt='Millionaire Logo' boxSize='200px' />
           <Container centerContent>
             {/* カテゴリ選択リスト */}
-            <CategorySelect category={category} setCategory={setCategory} />
+            <CategorySelect categories={categories} category={category} setCategory={setCategory} />
             {/* スタートボタンを表示する */}
             <Button colorScheme='blue' onClick={onStartQuiz} size='lg'>
               Start Quiz
@@ -40,3 +47,17 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const categories = await fetchCategories();
+    return {
+      props: { categories },
+    };
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return {
+      props: { categories: [] },
+    };
+  }
+};

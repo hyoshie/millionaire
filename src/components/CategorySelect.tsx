@@ -1,26 +1,17 @@
-import { Select, SelectProps, Spinner, Text } from '@chakra-ui/react';
+import { Select, SelectProps } from '@chakra-ui/react';
 import { Dispatch, FC, SetStateAction } from 'react';
-import { useFetchCategories } from '@/hooks/useFetchCategories';
 import { Category } from '@/types';
 
 type CategorySelectProps = {
+  categories: Category[];
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
 };
 
-export const CategorySelect: FC<CategorySelectProps> = ({ category, setCategory }) => {
-  const { categories, isLoading, error } = useFetchCategories();
-
+export const CategorySelect: FC<CategorySelectProps> = ({ categories, category, setCategory }) => {
   const handleChange: SelectProps['onChange'] = (e) => {
     setCategory(e.target.value);
   };
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return <Text color='red.500'>Failed to load categories.</Text>;
-  }
 
   return (
     <Select
