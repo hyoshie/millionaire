@@ -13,12 +13,7 @@ export const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBac
   if (quizStatus === 'ongoing') return null;
 
   return quizStatus === 'correct' ? (
-    <Button
-      position='absolute'
-      top={{ base: '900px', md: '850px' }}
-      colorScheme={MAIN_COLOR}
-      onClick={nextQuestionOrResult}
-    >
+    <Button colorScheme={MAIN_COLOR} onClick={nextQuestionOrResult}>
       Next
     </Button>
   ) : (

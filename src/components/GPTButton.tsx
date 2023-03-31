@@ -36,7 +36,7 @@ export const GPTButton = ({ currentQuestion, quizStatus }: GPTButtonProps) => {
   };
 
   return (
-    <Popover placement='top'>
+    <Popover placement='auto'>
       <PopoverTrigger>
         <IconButton
           size='md'
