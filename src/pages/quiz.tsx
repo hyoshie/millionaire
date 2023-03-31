@@ -1,12 +1,23 @@
 import { Center, Spinner } from '@chakra-ui/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { QuizBox } from '@/components/QuizBox';
 import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 
 export default function QuizPage() {
-  const { questions, isLoading, error } = useFetchQuestions();
+  const router = useRouter();
+  const queryCategory = router.query.category;
+  const category = typeof queryCategory === 'string' ? queryCategory : undefined;
+  const { questions, isLoading, error } = useFetchQuestions({ category });
 
-  if (isLoading) {
+  useEffect(() => {
+    if (!category) {
+      router.push('/');
+    }
+  }, [category, router]);
+
+  if (isLoading || !questions) {
     return (
       <Center h='100vh' bg='gray.100'>
         <Spinner size='xl' />;

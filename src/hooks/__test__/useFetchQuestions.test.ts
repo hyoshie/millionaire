@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import axios from 'axios';
 import { useFetchQuestions } from '../useFetchQuestions';
-import { Question } from '@/types';
+import { Question } from 'src/types/index';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -37,10 +37,16 @@ const mockQuestions: Question[] = [
 ];
 
 describe('useFetchQuestions', () => {
+  afterEach(() => {
+    mockedAxios.get.mockClear();
+  });
+
   it('質問データの取得に成功した場合、質問データが返されること', async () => {
     mockedAxios.get.mockResolvedValue({ data: mockQuestions });
 
-    const { result, waitForNextUpdate } = renderHook(() => useFetchQuestions());
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchQuestions({ category: 'テストカテゴリ' }),
+    );
 
     expect(result.current.isLoading).toBe(true);
 
@@ -55,7 +61,9 @@ describe('useFetchQuestions', () => {
     const errorMessage = '質問データ取得に失敗しました。';
     mockedAxios.get.mockRejectedValue(new Error(errorMessage));
 
-    const { result, waitForNextUpdate } = renderHook(() => useFetchQuestions());
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchQuestions({ category: 'テストカテゴリ' }),
+    );
 
     expect(result.current.isLoading).toBe(true);
 
@@ -64,5 +72,14 @@ describe('useFetchQuestions', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.questions).toEqual([]);
     expect(result.current.error.message).toBe(errorMessage);
+  });
+
+  it('カテゴリが指定されていない場合、質問データを取得しないこと', async () => {
+    const { result } = renderHook(() => useFetchQuestions());
+
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.questions).toBe(undefined);
+    expect(result.current.error).toBe(null);
+    expect(mockedAxios.get).not.toHaveBeenCalled();
   });
 });
