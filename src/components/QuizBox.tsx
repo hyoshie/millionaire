@@ -30,14 +30,22 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
   return (
     <>
       <VStack spacing={4}>
-        <Card p={4} w={{ base: '350px', md: '750px' }}>
+        <Card
+          p={4}
+          w={{ base: '350px', md: '750px' }}
+          position='absolute'
+          top='50%'
+          left='50%'
+          transform='translate(-50%, -50%)'
+          style={{ opacity: quizStatus !== 'ongoing' ? 0.5 : 1 }}
+        >
           <VStack spacing={4}>
             <TimeProgress progressValue={timeProgressValue} />
             <Text fontSize='md' p={2}>
               {currentQuestionIndex + 1} / {questions.length}
             </Text>
             <Box w='100%' h='150px' display='flex' alignItems='center'>
-              <Text fontSize='2xl' p={2}>
+              <Text fontSize={{ base: 'lg', md: '2xl' }} p={2}>
                 {currentQuestion.question}
               </Text>
             </Box>

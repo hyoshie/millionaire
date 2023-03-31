@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import { BackToHomeButton } from './BackToHomeButton';
 import { MAIN_COLOR } from '@/constants';
 import { QuizStatus } from '@/types';
@@ -13,9 +13,12 @@ export const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBac
   if (quizStatus === 'ongoing') return null;
 
   return quizStatus === 'correct' ? (
-    <Button colorScheme={MAIN_COLOR} onClick={nextQuestionOrResult}>
-      Next
-    </Button>
+    <>
+      <Text fontSize='2xl'>Correct!!</Text>
+      <Button colorScheme={MAIN_COLOR} onClick={nextQuestionOrResult}>
+        Next
+      </Button>
+    </>
   ) : (
     <BackToHomeButton />
   );

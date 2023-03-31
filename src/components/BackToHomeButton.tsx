@@ -1,12 +1,11 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { MAIN_COLOR } from '@/constants';
 
 type BackToHomeButtonProps = {
   colorScheme?: string;
 };
 
-export const BackToHomeButton = ({ colorScheme = MAIN_COLOR }: BackToHomeButtonProps) => {
+export const BackToHomeButton = ({ colorScheme = 'gray' }: BackToHomeButtonProps) => {
   const router = useRouter();
 
   const handleBackToHome = () => {
@@ -14,8 +13,11 @@ export const BackToHomeButton = ({ colorScheme = MAIN_COLOR }: BackToHomeButtonP
   };
 
   return (
-    <Button colorScheme={colorScheme} onClick={handleBackToHome}>
-      Home
-    </Button>
+    <>
+      <Text fontSize='2xl'>Game Over!!</Text>
+      <Button colorScheme={colorScheme} onClick={handleBackToHome}>
+        Home
+      </Button>
+    </>
   );
 };

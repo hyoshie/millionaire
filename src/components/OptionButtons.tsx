@@ -1,5 +1,5 @@
 import { Button, SimpleGrid } from '@chakra-ui/react';
-import { CORRECT_COLOR, MAIN_COLOR, QUIZ_OPTIONS } from '@/constants';
+import { CORRECT_COLOR, QUIZ_OPTIONS } from '@/constants';
 import { Option, Question, QuizStatus } from 'src/types/index';
 
 // 回答ボタンをレンダリングするためのコンポーネント
@@ -45,7 +45,7 @@ export const OptionButtons = ({
         const label = option.toUpperCase();
         const isCorrectAnswer = question.correct_option === option;
         const isDisabled = isQuestionFinished || hiddenOptions.includes(option);
-        const colorScheme = isCorrectAnswer && isQuestionFinished ? CORRECT_COLOR : MAIN_COLOR;
+        const colorScheme = isCorrectAnswer && isQuestionFinished ? CORRECT_COLOR : 'gray';
         const optionText = String(question[`option_${option}` as keyof Question]);
 
         return (
