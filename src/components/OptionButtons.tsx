@@ -1,4 +1,4 @@
-import { Button, SimpleGrid, Text } from '@chakra-ui/react';
+import { Button, SimpleGrid } from '@chakra-ui/react';
 import { QUIZ_OPTIONS } from '@/constants';
 import { Option, Question, QuizStatus } from 'src/types/index';
 
@@ -31,7 +31,7 @@ type OptionButtonsProps = {
   hiddenOptions: Option[];
 };
 
-const OptionButtons = ({
+export const OptionButtons = ({
   question,
   quizStatus,
   checkAnswer,
@@ -60,34 +60,5 @@ const OptionButtons = ({
         );
       })}
     </SimpleGrid>
-  );
-};
-
-// クイズの表示をレンダリングするためのコンポーネント
-type QuestionAndOptionsProps = {
-  question: Question;
-  quizStatus: QuizStatus;
-  checkAnswer: (_option: Option) => void;
-  nextQuestionOrResult: () => void;
-  hiddenOptions: Option[];
-};
-
-export const QuestionAndOptions = ({
-  question,
-  quizStatus,
-  checkAnswer,
-  nextQuestionOrResult,
-  hiddenOptions,
-}: QuestionAndOptionsProps) => {
-  return (
-    <>
-      <Text fontSize='2xl'>{question.question}</Text>
-      <OptionButtons
-        question={question}
-        quizStatus={quizStatus}
-        checkAnswer={checkAnswer}
-        hiddenOptions={hiddenOptions}
-      />
-    </>
   );
 };
