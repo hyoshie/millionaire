@@ -1,6 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import { handleOpenAIRequest } from './handleOpenAIRequest';
-import { openaiConfiguration } from 'lib/openAIClient';
+import { openAIConfiguration } from 'lib/openAIClient';
 
 const name = 'タカシ';
 const characteristic = 'くだけた口調。敬語は使わない。日本語で話す。';
@@ -15,7 +15,7 @@ const chatTypeToPrompt = (userInput: string) => {
 
 // bodyにchatTypeを含める。chatTypeはbegin, middle, endのいずれか。
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (openaiConfiguration.apiKey === undefined) {
+  if (openAIConfiguration.apiKey === undefined) {
     res.status(500).json({
       error: {
         message: 'No API key',
