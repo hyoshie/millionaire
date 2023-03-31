@@ -40,7 +40,7 @@ export const OptionButtons = ({
   const isQuestionFinished = quizStatus !== 'ongoing';
 
   return (
-    <SimpleGrid columns={2} spacing={4} w='100%'>
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} w='100%'>
       {QUIZ_OPTIONS.map((option) => {
         const label = option.toUpperCase();
         const isCorrectAnswer = question.correct_option === option;

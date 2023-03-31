@@ -1,4 +1,4 @@
-import { Card, Text, VStack } from '@chakra-ui/react';
+import { Box, Card, Text, VStack } from '@chakra-ui/react';
 import { LifelinesButtons } from './LifelinesButtons';
 import { NextOrBackButton } from './NextOrBackButton';
 import { TimeProgress } from './TimeProgress';
@@ -30,15 +30,17 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
   return (
     <>
       <VStack spacing={4}>
-        <Card p={4} w='800px'>
+        <Card p={4} w={{ base: '350px', md: '750px' }}>
           <VStack spacing={4}>
             <TimeProgress progressValue={timeProgressValue} />
             <Text fontSize='md' p={2}>
               {currentQuestionIndex + 1} / {questions.length}
             </Text>
-            <Text h='80px' fontSize='2xl' p={2}>
-              {currentQuestion.question}
-            </Text>
+            <Box w='100%' h='150px' display='flex' alignItems='center'>
+              <Text fontSize='2xl' p={2}>
+                {currentQuestion.question}
+              </Text>
+            </Box>
             <LifelinesButtons
               currentQuestion={currentQuestion}
               quizStatus={quizStatus}

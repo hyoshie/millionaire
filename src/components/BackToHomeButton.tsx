@@ -14,7 +14,12 @@ export const BackToHomeButton = ({ colorScheme = MAIN_COLOR }: BackToHomeButtonP
   };
 
   return (
-    <Button colorScheme={colorScheme} onClick={handleBackToHome}>
+    <Button
+      position='absolute'
+      top={{ base: '900px', md: '850px' }}
+      colorScheme={colorScheme}
+      onClick={handleBackToHome}
+    >
       Home
     </Button>
   );
