@@ -20,7 +20,7 @@ export async function handleOpenAIRequest(req: NextApiRequest, chatPrompt: strin
     const rawMessage = completion.data.choices[0].message?.content;
     const message = rawMessage?.replace(/\n/g, '').trim();
     return message;
-  } catch (error: Error | any) {
+  } catch (error: any) {
     throw error;
   }
 }
