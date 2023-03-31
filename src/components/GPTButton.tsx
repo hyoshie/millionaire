@@ -1,5 +1,4 @@
 import {
-  Button,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -8,17 +7,19 @@ import {
   Text,
   Spinner,
   Center,
+  IconButton,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { FaRobot } from 'react-icons/fa';
 import { useFetchAnswerFromGPT } from '@/hooks/useFetchAnswerFromGPT';
 import { Question, QuizStatus } from '@/types';
 
-type PhoneAFriendButtonProps = {
+type GPTButtonProps = {
   currentQuestion: Question;
   quizStatus: QuizStatus;
 };
 
-export const PhoneAFriendButton = ({ currentQuestion, quizStatus }: PhoneAFriendButtonProps) => {
+export const GPTButton = ({ currentQuestion, quizStatus }: GPTButtonProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
   const { fetchAnswerFromGPT, isLoading, error } = useFetchAnswerFromGPT();
 
@@ -36,13 +37,14 @@ export const PhoneAFriendButton = ({ currentQuestion, quizStatus }: PhoneAFriend
   return (
     <Popover placement='top'>
       <PopoverTrigger>
-        <Button
-          colorScheme='teal'
+        <IconButton
+          size='lg'
+          aria-label='GPT'
+          icon={<FaRobot />}
+          colorScheme='blue'
           onClick={handleOnClick}
           isDisabled={gptAnswer !== '' || quizStatus !== 'ongoing'}
-        >
-          {gptAnswer !== '' ? 'Used' : 'Phone a Friend'}
-        </Button>
+        />
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />

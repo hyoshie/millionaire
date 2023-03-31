@@ -1,7 +1,5 @@
-import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { AskTheAudienceButton } from '@/components/AskTheAudienceButton';
-import { FiftyFiftyButton } from '@/components/FiftyFiftyButton';
-import { PhoneAFriendButton } from '@/components/PhoneAFriendButton';
+import { Text, VStack } from '@chakra-ui/react';
+import { LifelinesBox } from './LifelinesBox';
 import { ProgressBar } from '@/components/ProgressBar';
 import { QuestionAndOptions } from '@/components/QuestionAndOptions';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
@@ -29,18 +27,14 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
 
   return (
     <>
-      <VStack spacing={8}>
-        <Heading as='h1' size='2xl'>
-          Quiz
-        </Heading>
+      <VStack spacing={4}>
         <Text>Time left: {timeLeft}</Text>
         <ProgressBar progressValue={progressValue} />
-        {/* Lifelinesを表示する */}
-        <HStack spacing={4}>
-          <PhoneAFriendButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
-          <AskTheAudienceButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
-          <FiftyFiftyButton quizStatus={quizStatus} handleFiftyFifty={handleFiftyFifty} />
-        </HStack>
+        <LifelinesBox
+          currentQuestion={currentQuestion}
+          quizStatus={quizStatus}
+          handleFiftyFifty={handleFiftyFifty}
+        />
         <QuestionAndOptions
           question={currentQuestion}
           quizStatus={quizStatus}
