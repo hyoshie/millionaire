@@ -1,4 +1,4 @@
-import { Center, Spinner } from '@chakra-ui/react';
+import { Card, Center, Spinner } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -39,7 +39,9 @@ export default function QuizPage() {
         <title>Quiz Page</title>
       </Head>
       <Center h='100vh' bg='gray.100'>
-        <QuizBox questions={questions} />
+        <Card p={4} w='800px'>
+          <QuizBox questions={questions} />
+        </Card>
       </Center>
     </>
   );
