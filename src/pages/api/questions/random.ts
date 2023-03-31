@@ -16,33 +16,16 @@ export default async function handler(req: RandomQuestionRequest, res: NextApiRe
   try {
     const categoryName = req.query.category;
 
-    // カテゴリ名からカテゴリIDを取得
-    const { data: categoriesData, error: categoriesError } = await supabase
-      .from('categories')
-      .select('id')
-      .eq('name', categoryName)
-      .single();
-
-    if (categoriesError || !categoriesData) {
-      // エラーハンドリング（カテゴリが見つからない場合など）
-      console.error('Error fetching category ID:', categoriesError);
-      // 必要に応じて適切なエラーレスポンスを返します。
-      return;
-    }
-
-    const categoryId = categoriesData.id;
-
-    // カテゴリIDに基づいてランダムな問題を取得
+    // カテゴリ名に基づいてランダムな問題を取得
     const { data: questionsData, error: questionsError } = await supabase
       .from('random_questions')
-      .select('*')
-      .eq('category_id', categoryId)
+      // ここを参考にした(https://www.sukerou.com/2022/11/supabase-javascirpt.html)
+      .select('*, categories!inner(name)')
+      .eq('categories.name', categoryName)
       .limit(QUIZ_QUESTION_COUNT);
 
     if (questionsError) {
-      // エラーハンドリング（問題の取得に失敗した場合）
       console.error('Error fetching questions:', questionsError);
-      // 必要に応じて適切なエラーレスポンスを返します。
       return;
     }
 
