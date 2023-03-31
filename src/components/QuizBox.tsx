@@ -1,4 +1,4 @@
-import { Heading, Text, VStack } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
 import { LifelinesBox } from './LifelinesBox';
 import { ProgressBar } from '@/components/ProgressBar';
 import { QuestionAndOptions } from '@/components/QuestionAndOptions';
@@ -27,10 +27,7 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
 
   return (
     <>
-      <VStack spacing={8}>
-        <Heading as='h1' size='2xl'>
-          Quiz
-        </Heading>
+      <VStack spacing={4}>
         <Text>Time left: {timeLeft}</Text>
         <ProgressBar progressValue={progressValue} />
         <LifelinesBox

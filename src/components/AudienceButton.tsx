@@ -1,5 +1,4 @@
 import {
-  Button,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -7,8 +6,10 @@ import {
   PopoverBody,
   Spinner,
   Center,
+  IconButton,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { FaUsers } from 'react-icons/fa';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { useFetchAnswerFromAudience } from '@/hooks/useFetchAnswerFromAudience';
 import { OptionPercentage, Question, QuizStatus } from '@/types';
@@ -36,13 +37,14 @@ export const AudienceButton = ({ currentQuestion, quizStatus }: AudienceButtonPr
     <>
       <Popover placement='top'>
         <PopoverTrigger>
-          <Button
-            colorScheme='teal'
+          <IconButton
+            size='lg'
+            aria-label='Audience'
+            icon={<FaUsers />}
+            colorScheme='blue'
             onClick={handleOnClick}
             isDisabled={audienceAnswer !== undefined || quizStatus !== 'ongoing'}
-          >
-            {audienceAnswer !== undefined ? 'Used' : 'Ask the Audience'}
-          </Button>
+          />
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />
