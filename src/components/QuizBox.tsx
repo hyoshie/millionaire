@@ -1,5 +1,5 @@
 import { Text, VStack } from '@chakra-ui/react';
-import { LifelinesBox } from './LifelinesBox';
+import { LifelinesButtons } from './LifelinesButtons';
 import { ProgressBar } from '@/components/ProgressBar';
 import { QuestionAndOptions } from '@/components/QuestionAndOptions';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
@@ -30,7 +30,7 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
       <VStack spacing={4}>
         <Text>Time left: {timeLeft}</Text>
         <ProgressBar progressValue={progressValue} />
-        <LifelinesBox
+        <LifelinesButtons
           currentQuestion={currentQuestion}
           quizStatus={quizStatus}
           handleFiftyFifty={handleFiftyFifty}
