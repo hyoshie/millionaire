@@ -1,11 +1,11 @@
 import { Select, SelectProps, Spinner, Text } from '@chakra-ui/react';
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useFetchCategories } from '@/hooks/useFetchCategories';
 import { Category } from '@/types';
 
 type CategorySelectProps = {
   category: string;
-  setCategory: (category: string) => void;
+  setCategory: Dispatch<SetStateAction<string>>;
 };
 
 export const CategorySelect: FC<CategorySelectProps> = ({ category, setCategory }) => {

@@ -17,7 +17,6 @@ export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => 
     const fetchQuestions = async () => {
       try {
         // 毎回状態をリセットすることで、前回の状態が残らないようにする
-        setIsLoading(true);
         setError(null);
         setQuestions([]);
 
