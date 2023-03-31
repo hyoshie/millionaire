@@ -10,17 +10,17 @@ type CategorySelectProps = {
 
 export const CategorySelect: FC<CategorySelectProps> = ({
   categories,
-  selectedCategory: category,
-  setSelectedCategory: setCategory,
+  selectedCategory,
+  setSelectedCategory,
 }) => {
   const handleChange: SelectProps['onChange'] = (e) => {
-    setCategory(e.target.value);
+    setSelectedCategory(e.target.value);
   };
 
   return (
     <Select
       placeholder='Select a category'
-      value={category}
+      value={selectedCategory}
       onChange={handleChange}
       marginBottom={4}
     >
