@@ -62,7 +62,7 @@ describe('useFetchQuestions', () => {
     mockedAxios.get.mockRejectedValue(new Error(errorMessage));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useFetchQuestions({ category: '・テストカテゴリ' }),
+      useFetchQuestions({ category: 'テストカテゴリ' }),
     );
 
     expect(result.current.isLoading).toBe(true);
