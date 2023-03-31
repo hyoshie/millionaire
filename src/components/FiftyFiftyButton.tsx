@@ -1,6 +1,7 @@
 import { IconButton } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaStarHalfAlt } from 'react-icons/fa';
+import { MAIN_COLOR } from '@/constants';
 import { QuizStatus } from '@/types';
 
 type FiftyFiftyButtonProps = {
@@ -17,10 +18,11 @@ export const FiftyFiftyButton = ({ quizStatus, handleFiftyFifty }: FiftyFiftyBut
 
   return (
     <IconButton
-      size='lg'
+      size='md'
       aria-label='FiftyFifty'
+      variant='outline'
       icon={<FaStarHalfAlt />}
-      colorScheme='blue'
+      colorScheme={MAIN_COLOR}
       onClick={handleOnClick}
       isDisabled={used || quizStatus !== 'ongoing'}
     />

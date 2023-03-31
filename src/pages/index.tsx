@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { CategorySelect } from '@/components/CategorySelect';
+import { MAIN_COLOR } from '@/constants';
 import { Category } from '@/types';
 import { fetchCategories } from 'lib/fetchCategories';
 
@@ -42,8 +43,8 @@ export default function Home({ categories }: HomeProps) {
               setSelectedCategory={setSelectedCategory}
             />
             {/* スタートボタンを表示する */}
-            <Button colorScheme='blue' onClick={onStartQuiz} size='lg'>
-              Start Quiz
+            <Button colorScheme={MAIN_COLOR} onClick={onStartQuiz}>
+              Start
             </Button>
           </Container>
         </VStack>

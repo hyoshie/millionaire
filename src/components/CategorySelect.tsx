@@ -22,6 +22,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({
       placeholder='Select a category'
       value={selectedCategory}
       onChange={handleChange}
+      bg='white'
       marginBottom={4}
     >
       {categories.map((category: Category) => (

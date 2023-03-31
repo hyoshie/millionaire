@@ -1,5 +1,6 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import { BackToHomeButton } from './BackToHomeButton';
+import { MAIN_COLOR } from '@/constants';
 import { QuizStatus } from '@/types';
 
 // 次の質問に進むボタンをレンダリングするためのコンポーネント
@@ -12,9 +13,12 @@ export const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBac
   if (quizStatus === 'ongoing') return null;
 
   return quizStatus === 'correct' ? (
-    <Button colorScheme='blue' onClick={nextQuestionOrResult}>
-      Next Question
-    </Button>
+    <>
+      <Text fontSize='2xl'>Correct!!</Text>
+      <Button colorScheme={MAIN_COLOR} onClick={nextQuestionOrResult}>
+        Next
+      </Button>
+    </>
   ) : (
     <BackToHomeButton />
   );

@@ -17,7 +17,6 @@ export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => 
     const fetchQuestions = async () => {
       try {
         if (category) {
-          console.log(category);
           const response = await axios.get(`/api/questions/random/?category=${category}`);
           setQuestions(response.data);
         } else {

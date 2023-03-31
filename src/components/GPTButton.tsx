@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaRobot } from 'react-icons/fa';
+import { MAIN_COLOR } from '@/constants';
 import { useFetchAnswerFromGPT } from '@/hooks/useFetchAnswerFromGPT';
 import { Question, QuizStatus } from '@/types';
 
@@ -35,13 +36,14 @@ export const GPTButton = ({ currentQuestion, quizStatus }: GPTButtonProps) => {
   };
 
   return (
-    <Popover placement='top'>
+    <Popover placement='auto'>
       <PopoverTrigger>
         <IconButton
-          size='lg'
+          size='md'
           aria-label='GPT'
+          variant='outline'
           icon={<FaRobot />}
-          colorScheme='blue'
+          colorScheme={MAIN_COLOR}
           onClick={handleOnClick}
           isDisabled={gptAnswer !== '' || quizStatus !== 'ongoing'}
         />
