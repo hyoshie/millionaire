@@ -16,10 +16,6 @@ export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        // 毎回状態をリセットすることで、前回の状態が残らないようにする
-        setError(null);
-        setQuestions(undefined);
-
         if (category) {
           console.log(category);
           const response = await axios.get(`/api/questions/random/?category=${category}`);
