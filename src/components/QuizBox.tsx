@@ -1,7 +1,7 @@
 import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { AskTheAudienceButton } from '@/components/AskTheAudienceButton';
+import { AudienceButton } from '@/components/AudienceButton';
 import { FiftyFiftyButton } from '@/components/FiftyFiftyButton';
-import { PhoneAFriendButton } from '@/components/PhoneAFriendButton';
+import { GPTButton } from '@/components/GPTButton';
 import { ProgressBar } from '@/components/ProgressBar';
 import { QuestionAndOptions } from '@/components/QuestionAndOptions';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
@@ -37,8 +37,8 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
         <ProgressBar progressValue={progressValue} />
         {/* Lifelinesを表示する */}
         <HStack spacing={4}>
-          <PhoneAFriendButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
-          <AskTheAudienceButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
+          <GPTButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
+          <AudienceButton currentQuestion={currentQuestion} quizStatus={quizStatus} />
           <FiftyFiftyButton quizStatus={quizStatus} handleFiftyFifty={handleFiftyFifty} />
         </HStack>
         <QuestionAndOptions

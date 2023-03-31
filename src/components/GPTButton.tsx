@@ -13,12 +13,12 @@ import { useState } from 'react';
 import { useFetchAnswerFromGPT } from '@/hooks/useFetchAnswerFromGPT';
 import { Question, QuizStatus } from '@/types';
 
-type PhoneAFriendButtonProps = {
+type GPTButtonProps = {
   currentQuestion: Question;
   quizStatus: QuizStatus;
 };
 
-export const PhoneAFriendButton = ({ currentQuestion, quizStatus }: PhoneAFriendButtonProps) => {
+export const GPTButton = ({ currentQuestion, quizStatus }: GPTButtonProps) => {
   const [gptAnswer, setGPTAnswer] = useState<string>('');
   const { fetchAnswerFromGPT, isLoading, error } = useFetchAnswerFromGPT();
 

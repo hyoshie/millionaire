@@ -13,15 +13,12 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { useFetchAnswerFromAudience } from '@/hooks/useFetchAnswerFromAudience';
 import { OptionPercentage, Question, QuizStatus } from '@/types';
 
-type AskTheAudienceButtonProps = {
+type AudienceButtonProps = {
   currentQuestion: Question;
   quizStatus: QuizStatus;
 };
 
-export const AskTheAudienceButton = ({
-  currentQuestion,
-  quizStatus,
-}: AskTheAudienceButtonProps) => {
+export const AudienceButton = ({ currentQuestion, quizStatus }: AudienceButtonProps) => {
   const [audienceAnswer, setAudienceAnswer] = useState<OptionPercentage[]>();
   const { fetchAnswerFromAudience, isLoading, error } = useFetchAnswerFromAudience();
 
