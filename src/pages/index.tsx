@@ -1,18 +1,25 @@
 import { Button, Center, Container, VStack, Image } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { CategorySelect } from '@/components/CategorySelect';
 import { MAIN_COLOR } from '@/constants';
+import { Category } from '@/types';
+import { fetchCategories } from 'lib/fetchCategories';
 
-export default function Home() {
+type HomeProps = {
+  categories: Category[];
+};
+
+export default function Home({ categories }: HomeProps) {
   const router = useRouter();
-  const [category, setCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   // クイズを開始するための関数
   const onStartQuiz = () => {
-    if (category) {
-      router.push(`/quiz?category=${category}`);
+    if (selectedCategory) {
+      router.push(`/quiz?category=${selectedCategory}`);
     } else {
       alert('Please select a category.');
     }
@@ -30,7 +37,11 @@ export default function Home() {
           <Image src='/logo.png' alt='Millionaire Logo' boxSize='200px' />
           <Container centerContent>
             {/* カテゴリ選択リスト */}
-            <CategorySelect category={category} setCategory={setCategory} />
+            <CategorySelect
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
             {/* スタートボタンを表示する */}
             <Button colorScheme={MAIN_COLOR} onClick={onStartQuiz}>
               Start
@@ -41,3 +52,17 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const categories = await fetchCategories();
+    return {
+      props: { categories },
+    };
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return {
+      props: { categories: [] },
+    };
+  }
+};
