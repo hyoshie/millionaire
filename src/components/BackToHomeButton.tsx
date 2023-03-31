@@ -15,7 +15,7 @@ export const BackToHomeButton = ({ colorScheme = MAIN_COLOR }: BackToHomeButtonP
 
   return (
     <Button colorScheme={colorScheme} onClick={handleBackToHome}>
-      Back to Home
+      Home
     </Button>
   );
 };

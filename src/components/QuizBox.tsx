@@ -25,7 +25,7 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
   // 50:50で隠す選択肢とコールバック関数を取得する
   const { hiddenOptions, handleFiftyFifty } = useFiftyFifty(currentQuestion);
 
-  const timeProgressValue = (timeLeft / QUIZ_QUESTION_TIME) * 100;
+  const timeProgressValue = ((QUIZ_QUESTION_TIME - timeLeft) / QUIZ_QUESTION_TIME) * 100;
 
   return (
     <>

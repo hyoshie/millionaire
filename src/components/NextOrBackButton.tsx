@@ -14,7 +14,7 @@ export const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBac
 
   return quizStatus === 'correct' ? (
     <Button colorScheme={MAIN_COLOR} onClick={nextQuestionOrResult}>
-      Next Question
+      Next
     </Button>
   ) : (
     <BackToHomeButton />

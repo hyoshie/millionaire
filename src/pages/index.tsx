@@ -33,7 +33,7 @@ export default function Home() {
             <CategorySelect category={category} setCategory={setCategory} />
             {/* スタートボタンを表示する */}
             <Button colorScheme={MAIN_COLOR} onClick={onStartQuiz}>
-              Start Quiz
+              Start
             </Button>
           </Container>
         </VStack>
