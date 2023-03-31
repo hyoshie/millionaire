@@ -1,5 +1,6 @@
-import { Text, VStack } from '@chakra-ui/react';
+import { Card, Text, VStack } from '@chakra-ui/react';
 import { LifelinesButtons } from './LifelinesButtons';
+import { NextOrBackButton } from './NextOrBackButton';
 import { ProgressBar } from '@/components/ProgressBar';
 import { QuestionAndOptions } from '@/components/QuestionAndOptions';
 import { useFiftyFifty } from '@/hooks/useFiftyFifty';
@@ -28,20 +29,25 @@ export const QuizBox = ({ questions }: QuizBoxProps) => {
   return (
     <>
       <VStack spacing={4}>
-        <Text>Time left: {timeLeft}</Text>
-        <ProgressBar progressValue={progressValue} />
-        <LifelinesButtons
-          currentQuestion={currentQuestion}
-          quizStatus={quizStatus}
-          handleFiftyFifty={handleFiftyFifty}
-        />
-        <QuestionAndOptions
-          question={currentQuestion}
-          quizStatus={quizStatus}
-          checkAnswer={checkAnswer}
-          nextQuestionOrResult={nextQuestionOrResult}
-          hiddenOptions={hiddenOptions}
-        />
+        <Card p={4} w='800px'>
+          <VStack spacing={4}>
+            <Text>Time left: {timeLeft}</Text>
+            <ProgressBar progressValue={progressValue} />
+            <LifelinesButtons
+              currentQuestion={currentQuestion}
+              quizStatus={quizStatus}
+              handleFiftyFifty={handleFiftyFifty}
+            />
+            <QuestionAndOptions
+              question={currentQuestion}
+              quizStatus={quizStatus}
+              checkAnswer={checkAnswer}
+              nextQuestionOrResult={nextQuestionOrResult}
+              hiddenOptions={hiddenOptions}
+            />
+          </VStack>
+        </Card>
+        <NextOrBackButton quizStatus={quizStatus} nextQuestionOrResult={nextQuestionOrResult} />
       </VStack>
     </>
   );

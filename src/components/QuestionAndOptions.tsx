@@ -1,5 +1,4 @@
 import { Button, SimpleGrid, Text } from '@chakra-ui/react';
-import { BackToHomeButton } from './BackToHomeButton';
 import { QUIZ_OPTIONS } from '@/constants';
 import { Option, Question, QuizStatus } from 'src/types/index';
 
@@ -64,24 +63,6 @@ const OptionButtons = ({
   );
 };
 
-// 次の質問に進むボタンをレンダリングするためのコンポーネント
-type NextOrBackButtonProps = {
-  quizStatus: QuizStatus;
-  nextQuestionOrResult: () => void;
-};
-
-const NextOrBackButton = ({ quizStatus, nextQuestionOrResult }: NextOrBackButtonProps) => {
-  if (quizStatus === 'ongoing') return null;
-
-  return quizStatus === 'correct' ? (
-    <Button colorScheme='blue' onClick={nextQuestionOrResult}>
-      Next Question
-    </Button>
-  ) : (
-    <BackToHomeButton />
-  );
-};
-
 // クイズの表示をレンダリングするためのコンポーネント
 type QuestionAndOptionsProps = {
   question: Question;
@@ -107,7 +88,6 @@ export const QuestionAndOptions = ({
         checkAnswer={checkAnswer}
         hiddenOptions={hiddenOptions}
       />
-      <NextOrBackButton quizStatus={quizStatus} nextQuestionOrResult={nextQuestionOrResult} />
     </>
   );
 };
