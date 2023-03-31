@@ -9,7 +9,7 @@ type UseFetchQuestionsProps = {
 // クイズの質問を取得するためのカスタムフック
 export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => {
   // 質問の配列、ローディング中かどうか、エラーが発生したかどうかをuseStateで管理する
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<Question[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
@@ -21,8 +21,12 @@ export const useFetchQuestions = ({ category }: UseFetchQuestionsProps = {}) => 
         setError(null);
         setQuestions([]);
 
-        const response = await axios.get(`/api/questions/random/?category=${category || ''}`);
-        setQuestions(response.data);
+        if (category) {
+          const response = await axios.get(`/api/questions/random/?category=${category}`);
+          setQuestions(response.data);
+        } else {
+          setQuestions(undefined);
+        }
       } catch (error) {
         setError(error);
       } finally {

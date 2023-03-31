@@ -11,14 +11,13 @@ export default function QuizPage() {
   const category = typeof queryCategory === 'string' ? queryCategory : undefined;
   const { questions, isLoading, error } = useFetchQuestions({ category });
 
-  // categoryがundefinedの場合、ホーム画面にリダイレクトする
   useEffect(() => {
     if (!category) {
       router.push('/');
     }
   }, [category, router]);
 
-  if (isLoading) {
+  if (isLoading || !questions) {
     return (
       <Center h='100vh' bg='gray.100'>
         <Spinner size='xl' />;
