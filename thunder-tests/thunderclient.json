@@ -1,0 +1,93 @@
+[
+  {
+    "_id": "a17a7515-c458-4b80-affd-4045f3c832f9",
+    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
+    "containerId": "",
+    "name": "Categories",
+    "url": "{{SUPABASE_URL}}/rest/v1/categories",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-25T08:41:42.648Z",
+    "modified": "2023-03-26T02:41:55.069Z",
+    "headers": [
+      {
+        "name": "apikey",
+        "value": "{{SUPABASE_CLIENT_API_KEY}}"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "ba858dfe-32d1-4f50-b0f1-d8e145ff1d29",
+    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
+    "containerId": "",
+    "name": "Questions",
+    "url": "{{SUPABASE_URL}}/rest/v1/questions",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-25T08:42:00.857Z",
+    "modified": "2023-03-25T08:42:00.857Z",
+    "headers": [
+      {
+        "name": "apikey",
+        "value": "{{SUPABASE_CLIENT_API_KEY}}"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "2823cb7d-6d09-44df-b773-fac4f4c4819c",
+    "colId": "68e95a3e-8746-48e4-932a-bd00a4bd7ba9",
+    "containerId": "",
+    "name": "Questions Random",
+    "url": "http://localhost:3000/api/questions/random",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-25T14:33:45.477Z",
+    "modified": "2023-03-26T03:20:16.977Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "d88de02c-04a7-46c5-aa8c-20b4eb27fb1e",
+    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
+    "containerId": "",
+    "name": "Random Questions",
+    "url": "{{SUPABASE_URL}}/rest/v1/random_questions",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-25T15:56:04.061Z",
+    "modified": "2023-03-31T04:10:37.737Z",
+    "headers": [
+      {
+        "name": "apikey",
+        "value": "{{SUPABASE_CLIENT_API_KEY}}"
+      }
+    ],
+    "params": [
+      {
+        "name": "category",
+        "value": "Linuxのコマンド",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "e3f61c6b-942c-42b1-acc1-7c25c2812b8f",
+    "colId": "68e95a3e-8746-48e4-932a-bd00a4bd7ba9",
+    "containerId": "",
+    "name": "Questions All",
+    "url": "http://localhost:3000/api/questions/all",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-03-25T16:40:23.868Z",
+    "modified": "2023-03-26T03:20:35.355Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
