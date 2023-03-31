@@ -13,12 +13,12 @@ type HomeProps = {
 
 export default function Home({ categories }: HomeProps) {
   const router = useRouter();
-  const [category, setCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   // クイズを開始するための関数
   const onStartQuiz = () => {
-    if (category) {
-      router.push(`/quiz?category=${category}`);
+    if (selectedCategory) {
+      router.push(`/quiz?category=${selectedCategory}`);
     } else {
       alert('Please select a category.');
     }
@@ -36,7 +36,11 @@ export default function Home({ categories }: HomeProps) {
           <Image src='/logo.png' alt='Millionaire Logo' boxSize='200px' />
           <Container centerContent>
             {/* カテゴリ選択リスト */}
-            <CategorySelect categories={categories} category={category} setCategory={setCategory} />
+            <CategorySelect
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
             {/* スタートボタンを表示する */}
             <Button colorScheme='blue' onClick={onStartQuiz} size='lg'>
               Start Quiz

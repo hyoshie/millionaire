@@ -4,11 +4,15 @@ import { Category } from '@/types';
 
 type CategorySelectProps = {
   categories: Category[];
-  category: string;
-  setCategory: Dispatch<SetStateAction<string>>;
+  selectedCategory: string;
+  setSelectedCategory: Dispatch<SetStateAction<string>>;
 };
 
-export const CategorySelect: FC<CategorySelectProps> = ({ categories, category, setCategory }) => {
+export const CategorySelect: FC<CategorySelectProps> = ({
+  categories,
+  selectedCategory: category,
+  setSelectedCategory: setCategory,
+}) => {
   const handleChange: SelectProps['onChange'] = (e) => {
     setCategory(e.target.value);
   };
