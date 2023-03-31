@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { QUIZ_QUESTION_COUNT } from '@/constants';
 import { Question } from '@/types';
-import { supabase } from 'lib/supabaseClient';
+import { fetchQuestions } from 'lib/fetchQuestions';
 
 type Data = Question[] | { error: string };
 
@@ -15,19 +14,8 @@ type RandomQuestionRequest = NextApiRequest & {
 export default async function handler(req: RandomQuestionRequest, res: NextApiResponse<Data>) {
   try {
     const categoryName = req.query.category;
-
-    // カテゴリ名に基づいてランダムな問題を取得
-    const { data: questionsData, error: questionsError } = await supabase
-      .from('random_questions')
-      // ここを参考にした(https://www.sukerou.com/2022/11/supabase-javascirpt.html)
-      .select('*, categories!inner(name)')
-      .eq('categories.name', categoryName)
-      .limit(QUIZ_QUESTION_COUNT);
-
-    if (questionsError) {
-      console.error('Error fetching questions:', questionsError);
-      return;
-    }
+    if (!categoryName) throw new Error('category is required');
+    const questionsData = await fetchQuestions(categoryName);
 
     res.status(200).json(questionsData as Question[]);
   } catch (error) {
