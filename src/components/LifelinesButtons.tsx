@@ -4,17 +4,17 @@ import { FiftyFiftyButton } from './FiftyFiftyButton';
 import { GPTButton } from './GPTButton';
 import { Question, QuizStatus } from '@/types';
 
-type LifelinesBoxProps = {
+type LifelinesButtonsProps = {
   currentQuestion: Question;
   quizStatus: QuizStatus;
   handleFiftyFifty: () => void;
 };
 
-export const LifelinesBox = ({
+export const LifelinesButtons = ({
   currentQuestion,
   quizStatus,
   handleFiftyFifty,
-}: LifelinesBoxProps) => {
+}: LifelinesButtonsProps) => {
   return (
     <>
       <HStack spacing={4}>

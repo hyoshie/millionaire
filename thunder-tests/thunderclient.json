@@ -60,14 +60,20 @@
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-03-25T15:56:04.061Z",
-    "modified": "2023-03-25T15:58:56.043Z",
+    "modified": "2023-03-31T04:10:37.737Z",
     "headers": [
       {
         "name": "apikey",
         "value": "{{SUPABASE_CLIENT_API_KEY}}"
       }
     ],
-    "params": [],
+    "params": [
+      {
+        "name": "category",
+        "value": "Linuxのコマンド",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
@@ -81,25 +87,6 @@
     "created": "2023-03-25T16:40:23.868Z",
     "modified": "2023-03-26T03:20:35.355Z",
     "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "5160b38d-ad76-45bc-bb78-cab09122cbfd",
-    "colId": "0c77fb8e-cab3-4dbe-9ec7-f95d20818b03",
-    "containerId": "",
-    "name": "Random Questions Category",
-    "url": "{{SUPABASE_URL}}/rest/v1/random_questions",
-    "method": "GET",
-    "sortNum": 50000,
-    "created": "2023-03-30T04:40:45.998Z",
-    "modified": "2023-03-30T04:40:45.998Z",
-    "headers": [
-      {
-        "name": "apikey",
-        "value": "{{SUPABASE_CLIENT_API_KEY}}"
-      }
-    ],
     "params": [],
     "tests": []
   }

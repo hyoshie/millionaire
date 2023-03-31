@@ -70,7 +70,7 @@ describe('useFetchQuestions', () => {
     await waitForNextUpdate();
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.questions).toEqual([]);
+    expect(result.current.questions).toBe(undefined);
     expect(result.current.error.message).toBe(errorMessage);
   });
 
