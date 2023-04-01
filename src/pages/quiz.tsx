@@ -1,18 +1,36 @@
-import { Center } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
+import { Box, Center, Spinner } from '@chakra-ui/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { QuizBox } from '@/components/QuizBox';
-import { Question } from '@/types';
-import { fetchQuestions } from 'lib/fetchQuestions';
+import { useFetchQuestions } from 'src/hooks/useFetchQuestions';
 
-type QuizPageProps = {
-  questions: Question[];
-  error?: string;
-};
+export default function QuizPage() {
+  const router = useRouter();
+  const queryCategory = router.query.category;
+  const category = typeof queryCategory === 'string' ? queryCategory : undefined;
+  const { questions, isLoading, error } = useFetchQuestions({ category });
 
-export default function QuizPage({ questions, error }: QuizPageProps) {
+  useEffect(() => {
+    if (!category) {
+      router.push('/');
+    }
+  }, [category, router]);
+
+  if (isLoading || !questions) {
+    return (
+      <Center minH='100%' bg='gray.100'>
+        <Spinner size='xl' />
+      </Center>
+    );
+  }
+
   if (error) {
-    return <p>Error</p>;
+    return (
+      <Center minH='100%' bg='gray.100'>
+        <p>Error</p>
+      </Center>
+    );
   }
 
   return (
@@ -20,33 +38,11 @@ export default function QuizPage({ questions, error }: QuizPageProps) {
       <Head>
         <title>Quiz Page</title>
       </Head>
-      <Center h='100vh' bg='gray.100'>
-        <QuizBox questions={questions} />
-      </Center>
+      <Box minHeight='100vh' backgroundColor='gray.100'>
+        <Center h='100%'>
+          <QuizBox questions={questions} />
+        </Center>
+      </Box>
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (!context.query.category || Array.isArray(context.query.category)) {
-    return {
-      notFound: true,
-    };
-  }
-
-  try {
-    const category = context.query.category;
-    const questions = await fetchQuestions(category);
-    if (!questions.length) {
-      throw new Error('No questions found');
-    }
-    return {
-      props: { questions },
-    };
-  } catch (error) {
-    console.error('Error fetching questions:', error);
-    return {
-      props: { questions: [], error: String(error) },
-    };
-  }
-};
